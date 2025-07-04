@@ -1,0 +1,53 @@
+\chapter{Background and State of the Art}
+This chapter serves as an overview of the current state of the art regarding low-cost teleoperative surgical training systems. These systems are the current industry standard, and this section will explore their architecture, advantages, and disadvantages. Additionally, this section will delve into current control standards and strategies that these systems use and will discuss the Robotic Operating System 2 (ROS 2) and its applications.
+
+\section{The da Vinci Research Kit (dVRK)}  
+The da Vinci Research Kit (dVRK) is a research platform developed through a collaboration between academic institutions, Johns Hopkins University and Worcester Polytechnic Institute, and Intuitive Surgical Inc. in 2012. It consists of first-generation da Vinci components that allow for a common development platform between institutions for the research of robotic-assisted surgery. The dVRK consists of the following components \cite{dVRK}:  
+
+\begin{itemize}  
+    \item Two da Vinci Manual Tool Manipulators (MTMs)  
+    \item Two da Vinci Patient Side Manipulators (PSMs)  
+    \item A stereo viewer  
+    \item A foot pedal tray  
+    \item Manipulator Interface Boards (dMIBs)  
+    \item Basic accessory kit  
+\end{itemize}  
+
+At the time of writing in 2025 the DVRK program has been used by 40 research centers in 10 countries (citation needed)
+
+
+
+\section{Raven II}
+
+Section on background of Raven II
+
+\section{Robot Operating System (ROS 2)}
+
+Robot Operating System 2 (ROS 2) is a Linux-based, open-source robotics middleware suite consisting of software frameworks for robotic applications. ROS 2 is a direct evolution of ROS 1 and improves upon many aspects. While ROS 1 relied on a centralized ROS Master, ROS 2 uses the Data Distribution Service (DDS) for decentralized, peer-to-peer communication, eliminating the single point of failure present in the master node and increasing system reliability. ROS 2 also provides full real-time performance and supports most common microcontrollers through Micro-ROS, which is critical for many modern applications.
+
+ROS 2 has proven itself as an industry standard, being utilized frequently in cutting-edge applications such as autonomous vehicles, humanoid robotics, and even surgical robotics (e.g., Intuitive Surgical is exploring its use for modular control—citation needed). Its suite of tools and utilities provides researchers with valuable development resources, including system visualization, collision detection, and frame transformation libraries, all of which are valuable assets to a Robotic Autonomous System (RAS).
+
+\section{Control Techniques in Robotic Surgery}
+
+Precise control, haptic feedback, complex system dynamics, and high safety standards drive the need for sophisticated control techniques in modern robotic surgery systems. Industry-leading platforms such as Intuitive Surgical's da Vinci system utilize Model Predictive Control (MPC) (Kazanzides et al., 2011), enabling comprehensive modeling and prediction of system behavior. These systems also employ hierarchical control architectures (combining high-level planning with low-level execution) along with adaptive learning-based controllers to compensate for tissue deformation and operate effectively in dynamic environments (IEEE Reference).
+
+Surgeon feedback is equally critical for successful surgical outcomes. Advanced haptic feedback and force control algorithms are implemented in master-tool manipulators (MTMs) to provide surgeons with precise tactile information. Furthermore, real-time imaging and navigation systems deliver valuable intraoperative feedback to enhance surgical precision.
+
+The integration of artificial intelligence has revolutionized surgical robotics in recent years. Deep learning approaches now enable advanced perception and decision-making capabilities within these systems. For instance, real-time tissue identification (arXiv:2305.07841) allows for dynamic force modeling, enabling systems to adapt intelligently to varying tissue properties during procedures.
+
+\section{System Identification Techniques in Robotic Surgery}
+
+Implementing advanced control strategies requires a dynamic understanding of system behavior, which can only be achieved through robust system identification. The highly nonlinear nature of many robotic systems demands excitation methods that remain effective under nonlinear conditions. Multisine and chirp signals form the basis for many modern system identification techniques (Mechatronics, 2022: https://www.sciencedirect.com/science/article/abs/pii/S0957415822000381), and are increasingly combined with reinforcement learning approaches (IEEE CDC, 2023: https://ieeexplore.ieee.org/document/10383476).
+
+In surgical robotics, where safety is paramount, a multi-stage identification process is critical. For example, Intuitive Surgical performs low-level actuator characterization using step-response tests to validate settling time, overshoot, and stiffness in every motor and joint (Patent US20230309921A1: https://patents.google.com/patent/US20230309921A1). These physics-based models are then enhanced with AI/ML layers to handle complex surgical interactions (Patent US11432888B2: https://patents.google.com/patent/US11432888B2). This hybrid approach delivers uncompromising system dynamics and performance.
+
+\section{Summary and Research Motivation}
+
+Modern robotic-assisted surgical systems provide a powerful framework to assist doctors and surgeons, enabling them to improve patient quality of care while reducing postoperative recovery time. While these systems are incredibly capable, their high cost and barriers to entry have limited accessibility for researchers. This limitation has led to the development of several lower-cost alternatives, such as the Da Vinci Research Kit, Raven II, and the Desktop Surgical System.
+
+These systems inherit many features found in commercial solutions, including a ROS-based architecture and advanced control and identification techniques. However, the gap between their implementation and the current state of the art remains apparent. This research aims to reduce this technical gap by:
+\begin{itemize}
+    \item Upgrading the software architecture to ROS 2,
+    \item Implementing more advanced system identification techniques, and
+    \item Incorporating adaptive control to improve system performance.
+\end{itemize}

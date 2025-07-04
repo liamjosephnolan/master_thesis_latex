@@ -1,0 +1,136 @@
+\documentclass[a4paper,oneside,11pt]{scrreprt}
+% This document class 'scrreprt' is suitable for reports and theses, providing 'chapter' as the highest sectioning level.
+% For shorter works, 'scrartcl' could be used, where 'section' is the highest level (no 'chapter').
+% \documentclass[a4paper,bibtotoc,oneside]{scrbook} % Another option for books/theses with bibliography in ToC
+
+% --- Language and Encoding Settings ---
+\usepackage[utf8]{inputenc} % Ensures proper handling of UTF-8 characters
+\usepackage{ifthen} % Provides conditional commands
+\newboolean{english}
+\setboolean{english}{true} % Set to 'true' for English version, 'false' for German
+
+% --- Core LaTeX Packages ---
+\usepackage{amsmath} % Provides advanced mathematical environments and commands
+\usepackage{amsfonts} % Provides additional mathematical fonts (e.g., blackboard bold)
+\usepackage{amssymb} % Provides additional mathematical symbols
+\usepackage{graphicx} % Enables inclusion of images
+\usepackage{booktabs} % Enhances the appearance of tables with professional rules (toprule, midrule, bottomrule)
+\usepackage{caption}  % Provides enhanced caption customization for figures and tables
+
+% --- TikZ for Diagrams ---
+\usepackage{tikz} % Main package for creating vector graphics
+\usetikzlibrary{shapes,arrows,positioning,calc}
+
+% Define TikZ styles for consistency across all diagrams in the document
+
+% Define TikZ styles for consistency across all diagrams in the document
+\tikzset{
+    block/.style={
+        rectangle,
+        draw,
+        fill=blue!10,
+        text width=5em,
+        text centered,
+        rounded corners,
+        minimum height=2.5em,
+        font=\small % Added from the second block, ensuring it's applied
+    },
+    sum/.style={
+        draw,
+        circle,
+        node contents={+},
+        inner sep=1pt, % Adjust inner padding
+        minimum size=1.5em % Adjust size of the circle
+    },
+    input/.style={coordinate},
+    output/.style={coordinate},
+    arrow/.style={
+        -latex,
+        thick
+    },
+    disturbance/.style={
+        -latex,
+        dashed, % Use dashed line for disturbance path
+        thick,
+        red!70!black % Optional: color for disturbance
+    },
+    line/.style={ % This style was only in the second block, now correctly included
+        draw,
+        -latex' % A simpler arrow for direct connections
+    }
+}
+
+% --- Thesis-Specific Definitions (Metadata) ---
+\def\title{Implementing Adaptive Control in ROS 2 for a Laparoscopic Surgical Robotic Test Platform}
+%\def\title{Title of the Thesis} % Uncomment and modify for a different title
+\def\study{Mechatronics and Smart Technologies - Mechanical Engineering}
+%\def\study{Mechatronik - Elektrotechnik} % Uncomment and modify for a different study program
+\def\thesis{Master Thesis}
+%\def\thesis{Bachelorarbeit 2} % Uncomment and modify for a different thesis type
+\def\degree{"Master of Science in Engineering"} % Degree awarded
+\def\student{Liam Nolan} % Student's name
+\def\matnr{51843934} % Student's matriculation number
+\def\address{6020, Innsbruck, Amraser Str. 90} % Student's address
+\def\reviewerone{FH-Prof. Yeongmi Kim, PhD} % First reviewer's name and title
+%\def\reviewertwo{Dr. Markus Mustermann} % Uncomment and modify for a second reviewer
+
+% --- Inputting External Definitions ---
+% Note: All TikZ definitions are now directly in this file.
+% If 'etc/definitions.tex' contains other non-TikZ specific definitions,
+% keep the following line. Otherwise, it can be removed if empty.
+\input{etc/definitions.tex} % This line loads any other custom definitions (non-TikZ)
+
+\begin{document}
+
+% --- Language Selection and Listing Counter ---
+\ifthenelse{\boolean{english}}{\selectlanguage{english}}{\selectlanguage{ngerman}}
+\counterwithin{lstlisting}{chapter} % Resets listing counter at each new chapter
+
+%\layout % Uncomment to display the document layout (for debugging margins etc.)
+
+% --- Page Style Setup ---
+% Initiates header and footer styles for preliminary pages (Roman numbering)
+\pagestyle{plain}
+
+% --- Front Matter (Roman Numerals) ---
+\pagenumbering{Roman} % Sets page numbering to Roman numerals for front matter
+\input{etc/title_page.tex} % Title page content
+\input{etc/liu.tex} % Likely a declaration page
+\input{etc/thx.tex} % Acknowledgements/Thanks page
+\input{etc/abstract.tex} % Abstract content
+
+% --- Table of Contents ---
+\ifthenelse{\boolean{english}}{\selectlanguage{english}}{\selectlanguage{ngerman}} % Re-select language for ToC
+\tableofcontents % Generates the table of contents
+\newpage % Starts a new page after the table of contents
+
+% --- Main Body (Arabic Numerals) ---
+\setcounter{romancount}{\value{page}} % Stores the last Roman page number
+\setcounter{page}{1} % Resets page counter to 1
+\pagenumbering{arabic} % Sets page numbering to Arabic numerals for main content
+
+% Initiates header and footer styles for main content pages
+\pagestyle{fancy}
+
+%\selectlanguage{ngerman} % Uncomment if specific chapters need to be in German
+
+% --- Chapter Files ---
+\input{chapters/01_introduction.tex}
+\input{chapters/02_background}
+\input{chapters/03_system.tex}
+\input{chapters/04_implementation}
+\input{chapters/05_evaluation}
+\input{chapters/06_conclusion_discussion}
+
+%\selectlanguage{english} % Re-select English if previous chapters were in German
+
+% --- Listings (Code/Pseudo-code) ---
+\input{etc/listings.tex} % Includes code listings or similar content
+
+% --- Appendices ---
+\begin{appendix} % Starts the appendix section
+    \input{appendix/Matlab.tex} % Includes MATLAB-related appendix content
+    \input{appendix/Jupyter} % Includes Jupyter-related appendix content
+\end{appendix}
+
+\end{document}

@@ -1,0 +1,120 @@
+% deutsche Anpassungen
+%\usepackage[ansinew]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman,english]{babel}
+%\usepackage{babelbib}
+
+% mathematische Symbole
+\usepackage{amsmath,amssymb,amsfonts,amstext}
+
+% Listings
+\usepackage{listings}
+\lstset{numbers=left,numberstyle=\tiny,stepnumber=5,numbersep=5pt}
+
+% erweiterte Zeichenbefehle
+\usepackage{pst-all}
+
+% Kopfzeilen frei gestaltbar
+\usepackage{fancyhdr}
+\lfoot[\fancyplain{}{}]{\fancyplain{}{}}
+\rfoot[\fancyplain{}{}]{\fancyplain{}{}}
+\cfoot[\fancyplain{}{\footnotesize\thepage}]{\fancyplain{}{\footnotesize\thepage}}
+\lhead[\fancyplain{}{\footnotesize\nouppercase\leftmark}]{\fancyplain{}{}}
+\chead{}
+\rhead[\fancyplain{}{}]{\fancyplain{}{\footnotesize\nouppercase\normalfont\leftmark}} 
+
+% Farben im Dokument m"oglich
+\usepackage{color}
+
+% Schriftart Helvetica
+\usepackage{helvet}
+\renewcommand{\familydefault}{phv}
+
+% anderdhalbfacher Zeilenabstand
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage[per-mode = symbol]{siunitx}
+
+% Graphiken einbinden: hier f"ur pdflatex
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{svg}
+\usepackage{pdfpages}
+
+% verbesserte Floating Plazierung
+\usepackage{float}
+
+% "Uberpr"ufung des Layouts
+\usepackage{layout}
+\usepackage{array}  % For better table formatting
+\usepackage{array}
+
+% erweiterte Einstellungen der Bildunterschriften -> 8 Pt
+\usepackage[small]{caption}
+\captionsetup{belowskip=12pt,aboveskip=4pt}
+\usepackage{subcaption}
+
+% für floatbarrier
+\usepackage{placeins}
+
+\usepackage{ifthen}
+
+% H"ohe und Breite des Textk"orpers etwas gr"osser definieren
+\usepackage[tmargin=1in,bmargin=1in,lmargin=1.25in,rmargin=1.25in]{geometry}
+
+% Quellcode
+\usepackage{minted}
+\usemintedstyle{emacs}
+%%C
+\newmintinline{c}{}
+\newminted{c}{frame=single,
+framesep=2mm,
+baselinestretch=0.8,
+fontsize=\footnotesize,
+linenos}
+%%Python
+\newminted{python}{frame=single,
+framesep=2mm,
+baselinestretch=0.8,
+breaklines,
+%fontsize=\small,
+linenos}
+%% Matlab
+\newminted{matlab}{frame=single,
+framesep=2mm,
+baselinestretch=0.8,
+breaklines,
+%fontsize=\small,
+linenos}
+
+\sisetup{input-digits = 0123456789\pi}%
+
+% Referenzierung
+\usepackage{hyperref}
+
+% kreise um zahlen/Buchstaben
+\newcommand{\kreis}[1]{\unitlength1ex\begin{picture}(2.5,2.5)%
+\put(0.75,0.75){\circle{2.5}}\put(0.75,0.75){\makebox(0,0){#1}}\end{picture}}
+
+% für inline figures
+\usepackage{scalerel}
+
+% Einr"uckung von und Abstand zwischen Abs"atzen
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1.5ex plus0.5ex minus0.5ex}
+
+% weniger Warnungen wegen "uberf"ullter Boxen
+\tolerance = 9999
+\sloppy
+
+% Anpassung einiger "Uberschriften 
+\renewcommand\figurename{Figure}
+\renewcommand\tablename{Table}
+%\newcommand{\unit}{\mathrm}
+
+% Counter f"ur die Nummerierung
+\newcounter{romancount}
+
+% Boolsche Variable f"ur Bachelor-/Masterarbeit oder Bericht
+\newboolean{thesis}
