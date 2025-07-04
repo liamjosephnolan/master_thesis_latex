@@ -1,3 +1,5 @@
+% !TeX TXS-program:compile = txs:///pdflatex/[--shell-escape] %
+
 \documentclass[a4paper,oneside,11pt]{scrreprt}
 % This document class 'scrreprt' is suitable for reports and theses, providing 'chapter' as the highest sectioning level.
 % For shorter works, 'scrartcl' could be used, where 'section' is the highest level (no 'chapter').
@@ -128,9 +130,8 @@
 \input{etc/listings.tex} % Includes code listings or similar content
 
 % --- Appendices ---
-\begin{appendix} % Starts the appendix section
+\appendix % Starts the appendix section
     \input{appendix/Matlab.tex} % Includes MATLAB-related appendix content
     \input{appendix/Jupyter} % Includes Jupyter-related appendix content
-\end{appendix}
 
 \end{document}

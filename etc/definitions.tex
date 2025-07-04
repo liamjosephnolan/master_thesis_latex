@@ -12,6 +12,7 @@
 \lstset{numbers=left,numberstyle=\tiny,stepnumber=5,numbersep=5pt}
 
 % erweiterte Zeichenbefehle
+\usepackage[per-mode = symbol]{siunitx}
 \usepackage{pst-all}
 
 % Kopfzeilen frei gestaltbar
@@ -34,12 +35,9 @@
 \usepackage{setspace}
 \onehalfspacing
 
-\usepackage[per-mode = symbol]{siunitx}
-
 % Graphiken einbinden: hier f"ur pdflatex
 \usepackage{graphicx}
 \usepackage{import}
-\usepackage{svg}
 \usepackage{pdfpages}
 
 % verbesserte Floating Plazierung
@@ -48,11 +46,10 @@
 % "Uberpr"ufung des Layouts
 \usepackage{layout}
 \usepackage{array}  % For better table formatting
-\usepackage{array}
 
 % erweiterte Einstellungen der Bildunterschriften -> 8 Pt
-\usepackage[small]{caption}
-\captionsetup{belowskip=12pt,aboveskip=4pt}
+\usepackage{caption}
+\captionsetup{font=small,belowskip=12pt,aboveskip=4pt}
 \usepackage{subcaption}
 
 % für floatbarrier
@@ -118,3 +115,6 @@ linenos}
 
 % Boolsche Variable f"ur Bachelor-/Masterarbeit oder Bericht
 \newboolean{thesis}
+
+% custom command for parameters
+\newcommand{\param}[1]{\textit{#1}}

@@ -1,0 +1,20 @@
+\babel@toc {english}{}\relax 
+\babel@toc {english}{}\relax 
+\babel@toc {english}{}\relax 
+\babel@toc {english}{}\relax 
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Placeholder image of system\relax }}{8}{figure.caption.6}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Detailed depiction of the MTM's arm and wrist subsystems, with their individual components labeled.\relax }}{9}{figure.caption.7}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Exploded view of the MTM components (excluding EWCU fixation) showing the updated training console design. Key improvements include: (1) circlip for axial safeguarding, (2) PTFE thrust washer to eliminate bearing clearance effects while maintaining low friction, and (3) reduced wear characteristics.\relax }}{10}{figure.caption.9}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Initial ROS 2 System Architecture for Target Pose Calculation.\relax }}{19}{figure.caption.19}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Optimized ROS 2 System Architecture for Direct Target Pose Streaming.\relax }}{20}{figure.caption.20}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces SDF model of MTM\relax }}{21}{figure.caption.21}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Enter Caption\relax }}{23}{figure.caption.23}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Theoretical trend of absolute motor voltage required for the roll subsystem as a function of roll angle.\relax }}{26}{figure.caption.24}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Theoretical trend of required motor voltage for the pitch subsystem as a function of pitch angle.\relax }}{26}{figure.caption.25}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
