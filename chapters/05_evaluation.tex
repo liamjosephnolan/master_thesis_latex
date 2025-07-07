@@ -1,11 +1,38 @@
 \chapter{System evaluation}
 \label{chapter:results}
 
+In an effort to demonstrate the effectiveness of the designed control system, a robust evaluation procedure was developed. This procedure and its results will be explored in this section.
+
+
 \section{Overview of Experiments}
 \label{section:experiment_overview}
 
-\section{Trajectory Tracking Performance}
+The evaluation of the control system was conducted through a series of experiments designed to assess its performance under various conditions. The experiments were structured to test the system's response to different trajectories. Two primary experiments were developed to evaluate this:
+
+\begin{itemize}
+    \item \textbf{Sinusoidal Path Following}: This experiment consisted of a pre-generated sinusoidal path that the robot was required to follow. The path was designed to test the system's ability to track a smooth, continuous trajectory while maintaining stability and accuracy. The period of the sine wave was chosen to test the system's response to rapid velocities, and its amplitude was selected to push the system towards its extrema in each axis. The following parameters were chosen for each axis:
+    \begin{itemize}
+        \item \textbf{Pitch Period}: 3 seconds
+        \item \textbf{Pitch Amplitude}: $\pm 15$ degrees
+        \item \textbf{Roll Period}: 3 seconds
+        \item \textbf{Roll Amplitude}: $\pm 20$ degrees
+    \end{itemize}
+    
+    \item \textbf{Target Following}: This experiment was designed to more accurately reflect real-world conditions that the subsystems would encounter in practice. The MTM was used to generate a target trajectory path that was representative of typical movements in a surgical procedure. Both axes then attempted to follow this path as closely as possible.
+\end{itemize}
+
+During these experiments, the improved control algorithm was tested alongside the previously developed control algorithm. During each trial, the target position, actual positions, commanded motor speed, and positional error were carefully tracked and logged. This data was then parsed using a custom MATLAB script and plotted to compare the performance of the two control algorithms. The following sections detail the results of these experiments, focusing on trajectory tracking performance and the effect of the control algorithm on the system's overall performance.
+
+\section{Control Algorithm Performance}
 \label{section:trajectory_performance}
+
+These experiments revealed a significant increase in performance for the new control algorithm. It was observed during both the sinusoidal path-following and trajectory-following experiments that the positional error was greatly reduced in both the roll and pitch axes. With the previous proportional control algorithm, the system consistently undershot or overshot the target position and lagged behind the intended trajectory, particularly at the extrema of the joint angles.
+
+With the proportional control algorithm, the error in the pitch axis reached a maximum value of 2.31 degrees, while the error in the roll axis reached 1.17 degrees. The overall average error for the pitch axis was VALUE HERE, and the overall average error for the roll axis was VALUE HERE. These errors were particularly pronounced at the extrema of the joint angles, where the system struggled to maintain accuracy and stability.
+
+With the new LQR and LQI with feedforward control algorithm, the maximum error in the pitch axis was reduced to 0.35 degrees, and the maximum error in the roll axis was reduced to 0.41 degrees. Both of these errors occurred at the extreme limits of their respective axes, and the average error of the pitch axis over the trial was VALUE HERE while the value for the average error over the trial for the roll dof was VALUE HERE.
+
+Overall, the performance of the new control algorithm greatly exceeded that of the old algorithm.
 
 \section{Effect of Adaptive Control}
 \label{section:adaptive_pso_results}

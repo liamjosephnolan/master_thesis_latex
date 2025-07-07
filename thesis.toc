@@ -71,15 +71,15 @@
 \contentsline {subsection}{\numberline {4.3.6}Comprehensive Control Strategy}{32}{subsection.4.3.6}%
 \contentsline {chapter}{\numberline {5}System evaluation}{34}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Overview of Experiments}{34}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Trajectory Tracking Performance}{34}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Effect of Adaptive Control}{34}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Summary of Results}{34}{section.5.4}%
-\contentsline {chapter}{\numberline {6}Conclusion and Future Work}{35}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Summary of Research Objectives}{35}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Key Findings}{35}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Limitations}{35}{section.6.3}%
-\contentsline {section}{\numberline {6.4}Recommendations for Future Work}{35}{section.6.4}%
-\contentsline {section}{\numberline {6.5}Final Remarks}{35}{section.6.5}%
+\contentsline {section}{\numberline {5.2}Control Algorithm Performance}{35}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Effect of Adaptive Control}{35}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Summary of Results}{35}{section.5.4}%
+\contentsline {chapter}{\numberline {6}Conclusion and Future Work}{36}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Summary of Research Objectives}{36}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Key Findings}{36}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Limitations}{36}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Recommendations for Future Work}{36}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Final Remarks}{36}{section.6.5}%
 \contentsline {chapter}{Bibliography}{VIII}{chapter*.28}%
 \contentsline {chapter}{List of Figures}{IX}{chapter*.29}%
 \contentsline {chapter}{List of Tables}{X}{chapter*.30}%
