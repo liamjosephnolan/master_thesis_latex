@@ -84,6 +84,16 @@
 
 \begin{document}
 
+\pagestyle{fancy}
+\lfoot[\fancyplain{}{}]{\fancyplain{}{}}
+\cfoot[\fancyplain{}{\footnotesize\thepage}]{\fancyplain{}{\footnotesize\thepage}}
+\lhead[\fancyplain{}{\footnotesize
+ouppercase\leftmark}]{\fancyplain{}{}}
+\chead{}
+\rhead[\fancyplain{}{}]{\fancyplain{}{\footnotesize
+ouppercase
+	ormalfont\leftmark}}
+
 % --- Language Selection and Listing Counter ---
 \ifthenelse{\boolean{english}}{\selectlanguage{english}}{\selectlanguage{ngerman}}
 \counterwithin{lstlisting}{chapter} % Resets listing counter at each new chapter
@@ -112,7 +122,8 @@
 \pagenumbering{arabic} % Sets page numbering to Arabic numerals for main content
 
 % Initiates header and footer styles for main content pages
-\pagestyle{fancy}
+
+
 
 %\selectlanguage{ngerman} % Uncomment if specific chapters need to be in German
 

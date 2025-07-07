@@ -9,8 +9,8 @@
 \contentsline {table}{\numberline {3.2}{\ignorespaces Main Axes Drive Specifications\relax }}{15}{table.caption.16}%
 \addvspace {10\p@ }
 \contentsline {table}{\numberline {4.1}{\ignorespaces MTM \texttt {ROS2} Topics\relax }}{22}{table.caption.22}%
-\contentsline {table}{\numberline {4.2}{\ignorespaces Grid of 9 Characterization Points for System Identification\relax }}{27}{table.caption.26}%
-\contentsline {table}{\numberline {4.3}{\ignorespaces Ziegler-Nichols PID Gains for Roll and Pitch Subsystems\relax }}{28}{table.caption.27}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Grid of 9 Characterization Points for System Identification\relax }}{29}{table.caption.26}%
+\contentsline {table}{\numberline {4.3}{\ignorespaces Ziegler-Nichols PID Gains for Roll and Pitch Subsystems\relax }}{30}{table.caption.27}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
