@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.11.6)  7 JUL 2025 14:59
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.11.6)  8 JUL 2025 12:26
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -1364,23 +1364,23 @@ File: ts1phv.fd 2020/03/25 scalable font definitions for TS1/phv.
 ) [4
 
 ] [5]
-Underfull \hbox (badness 4291) in paragraph at lines 42--43
+Underfull \hbox (badness 4291) in paragraph at lines 45--46
 \T1/phv/m/n/10.95 cess is crit-i-cal. For ex-am-ple, In-tu-itive Sur-gi-cal per-forms low-level ac-tu-a-
  []
 
 
-Underfull \hbox (badness 2837) in paragraph at lines 42--43
+Underfull \hbox (badness 2837) in paragraph at lines 45--46
 \T1/phv/m/n/10.95 tor char-ac-ter-i-za-tion us-ing step-response tests to val-i-date set-tling time, over-
  []
 
 
-Underfull \hbox (badness 6141) in paragraph at lines 42--43
+Underfull \hbox (badness 6141) in paragraph at lines 45--46
 \T1/phv/m/n/10.95 shoot, and stiff-ness in ev-ery mo-tor and joint (Patent US20230309921A1:
  []
 
-) (./chapters/03_system.tex [6]
+[6]) (./chapters/03_system.tex [7]
 chapter 3.
-[7
+[8
 
 ]
 <figures/design/system_overview.png, id=231, 1284.8pt x 722.7pt>
@@ -1388,7 +1388,7 @@ File: figures/design/system_overview.png Graphic file (type png)
 <use figures/design/system_overview.png>
 Package pdftex.def Info: figures/design/system_overview.png  used on input line 59.
 (pdftex.def)             Requested size: 312.62466pt x 175.8445pt.
- [8 <./figures/design/system_overview.png>]
+ [9 <./figures/design/system_overview.png>]
 <figures/mtm_overview.png, id=240, 966.61125pt x 556.0775pt>
 File: figures/mtm_overview.png Graphic file (type png)
 <use figures/mtm_overview.png>
@@ -1407,10 +1407,10 @@ Package pdftex.def Info: figures/mtm_detailed.png  used on input line 106.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[9 <./figures/mtm_overview.png>] [10 <./figures/mtm_detailed.png>] [11] [12] [13] [14] [15]
+[10 <./figures/mtm_overview.png>] [11 <./figures/mtm_detailed.png>] [12] [13] [14] [15] [16]
 LaTeX Font Info:    Font shape `T1/phv/m/it' in size <10.95> not available
 (Font)              Font shape `T1/phv/m/sl' tried instead on input line 335.
- [16]
+ [17]
 LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 386.
  (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
@@ -1424,16 +1424,16 @@ Underfull \hbox (badness 10000) in paragraph at lines 398--399
 []\T1/phv/m/n/10.95 Packaging data with start/end mark-ers for ro-bust pars-ing
  []
 
-[17]
+[18]
 Underfull \hbox (badness 10000) in paragraph at lines 421--422
 []\T1/phv/m/n/10.95 Implementing ramp-up rou-tines for smooth mo-tion ini-ti-a-tion
  []
 
-) (./chapters/04_implementation.tex [18]
+) (./chapters/04_implementation.tex [19]
 chapter 4.
-[19
+[20
 
-] [20]
+] [21]
 <figures/mtm_sdf_model.png, id=336, 1074.0125pt x 786.94pt>
 File: figures/mtm_sdf_model.png Graphic file (type png)
 <use figures/mtm_sdf_model.png>
@@ -1447,13 +1447,13 @@ Overfull \hbox (23.31596pt too wide) in paragraph at lines 102--113
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[21 <./figures/mtm_sdf_model.png>]
+[22 <./figures/mtm_sdf_model.png>]
 <figures/bad_data.png, id=343, 1617.04124pt x 933.4875pt>
 File: figures/bad_data.png Graphic file (type png)
 <use figures/bad_data.png>
 Package pdftex.def Info: figures/bad_data.png  used on input line 137.
 (pdftex.def)             Requested size: 208.41644pt x 120.30359pt.
- [22] [23 <./figures/bad_data.png>] [24] [25] [26]
+ [23] [24 <./figures/bad_data.png>] [25] [26] [27]
 <figures/Roll_Subsystem_Theoretical_Trend.png, id=370, 441.8106pt x 345.9324pt>
 File: figures/Roll_Subsystem_Theoretical_Trend.png Graphic file (type png)
 <use figures/Roll_Subsystem_Theoretical_Trend.png>
@@ -1464,7 +1464,7 @@ File: figures/Pitch_Subsystem_Theoretical_Trend.png Graphic file (type png)
 <use figures/Pitch_Subsystem_Theoretical_Trend.png>
 Package pdftex.def Info: figures/Pitch_Subsystem_Theoretical_Trend.png  used on input line 228.
 (pdftex.def)             Requested size: 333.46758pt x 259.13722pt.
- [27 <./figures/Roll_Subsystem_Theoretical_Trend.png (PNG copy)>] [28 <./figures/Pitch_Subsystem_Theoretical_Trend.png (PNG copy)>]
+ [28 <./figures/Roll_Subsystem_Theoretical_Trend.png (PNG copy)>] [29 <./figures/Pitch_Subsystem_Theoretical_Trend.png (PNG copy)>]
 Underfull \hbox (badness 10000) in paragraph at lines 261--262
 []\T1/phv/m/n/10.95 Upon the com-ple-tion of each sys-tem iden-ti-fi-ca-tion trial, the re-sult-ing
  []
@@ -1474,13 +1474,13 @@ Underfull \hbox (badness 7722) in paragraph at lines 261--262
 \T1/phv/m/n/10.95 sys-tem re-sponse was saved in a CSV file un-der the fol-low-ing for-mat:
  []
 
-[29] [30] [31]) (./chapters/05_evaluation.tex [32] [33]
+[30] [31] [32]) (./chapters/05_evaluation.tex [33] [34]
 chapter 5.
-[34
+[35
 
-]) (./chapters/06_conclusion_discussion.tex [35]
+]) (./chapters/06_conclusion_discussion.tex [36]
 chapter 6.
-) (./etc/listings.tex (./thesis.bbl [36
+) (./etc/listings.tex (./thesis.bbl [37
 
 ]) [8
 
@@ -1521,18 +1521,18 @@ Package rerunfilecheck Info: File `thesis.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 43364 strings out of 480247
- 892548 string characters out of 5896106
- 1396018 words of memory out of 5000000
- 60297 multiletter control sequences out of 15000+600000
+ 43359 strings out of 480247
+ 892466 string characters out of 5896106
+ 1395018 words of memory out of 5000000
+ 60293 multiletter control sequences out of 15000+600000
  502354 words of font info for 72 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  108i,10n,106p,10651b,971s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1095.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on thesis.pdf (47 pages, 1464765 bytes).
+Output written on thesis.pdf (48 pages, 1465779 bytes).
 PDF statistics:
- 796 PDF objects out of 1000 (max. 8388607)
- 700 compressed objects within 7 object streams
- 165 named destinations out of 1000 (max. 500000)
- 672 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 790 PDF objects out of 1000 (max. 8388607)
+ 693 compressed objects within 7 object streams
+ 164 named destinations out of 1000 (max. 500000)
+ 656 words of extra memory for PDF output out of 10000 (max. 10000000)
 
