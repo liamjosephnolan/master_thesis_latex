@@ -1,8 +1,176 @@
-@misc{dVRK,
-    author = {dVRK Community},
-    title = {The da Vinci Research Kit},
-    year = {2023},
-    howpublished = {\url{https://github.com/jhu-dvrk/dvrk-ros}}
+@article{Lanfranco2004RoboticSurgery,
+  title={Robotic surgery: a current perspective},
+  author={Lanfranco, Anthony R and Castellanos, Andres E and Desai, Jaydev P and Meyers, William C},
+  journal={Annals of Surgery},
+  volume={239},
+  number={1},
+  pages={14--20},
+  year={2004},
+  publisher={Lippincott Williams \& Wilkins},
+  doi={10.1097/01.sla.0000103020.19595.7d},
+  pmid={14685095},
+  pmc={PMC1356187}
+}
+
+@online{DVRKRTD,
+  title={{The da Vinci Research Kit (dVRK) Documentation}},
+  author={{Johns Hopkins University and Worcester Polytechnic Institute and Intuitive Surgical}},
+  year={2025}, 
+  url={https://dvrk.readthedocs.io/main/index.html},
+  urldate={2025-07-14}, 
+  note={Accessed: July 14, 2025} 
+}
+
+@misc{DVRKComponents,
+  title={{The da Vinci Research Kit (dVRK) Components}},
+  author={{Johns Hopkins University and Intuitive Surgical}}, 
+  howpublished={\url{https://research.intusurg.com/index.php/Main_Page}}, 
+  year={2025}, 
+  note={Accessed: July 14, 2025}
+}
+
+@online{RobotsGuideRaven,
+  title={{Raven Surgical Robot}},
+  author={{RobotsGuide.com}},
+  url={https://robotsguide.com/robots/ravensurgical/},
+  year={2024},
+  urldate={2025-07-14}
+}
+
+@article{Hannaford2013RavenII,
+  author={Hannaford, Blake and Rosen, Jacob and Friedman, Daniel W. and King, Holly and Sinanan, Mark and Satava, Richard},
+  journal={IEEE Transactions on Biomedical Engineering},
+  title={Raven-II: An Open Platform for Surgical Robotics Research},
+  year={2013},
+  volume={60},
+  number={4},
+  pages={954-959},
+  doi={10.1109/TBME.2012.2228858}
+}
+
+@article{Chen2013OpenSource,
+  author = {Chen, Zihan and Deguet, Anton and Taylor, Russell and Dimaio, Simon and Fischer, Gregory and Kazanzides, Peter},
+  year = {2013},
+  month = {08},
+  title = {An Open-Source Hardware and Software Platform for Telesurgical Robotics Research},
+  journal = {The MIDAS Journal},
+  doi = {10.54294/2dcog6}
+}
+
+@inproceedings{Kazanzides2014DVRK,
+  author={Kazanzides, Peter and Oppenheimer, Paul and Chai, Xiaofeng and Lee, Jinah and Khakha, Rohan and Chen, Frank and Taylor, Russell H and Johnson, George H. F. and Chiu, Kevin Y. and Lee, Young and Taylor, Russell N. H. and Taylor, Russell H. S. and Maros, Tamas},
+  booktitle={2014 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  title={{The da Vinci Research Kit: A Platform for Open Surgical Robotics Research}},
+  year={2014},
+  pages={2455-2461},
+  doi={10.1109/IROS.2014.6942940}
+}
+
+@article{Okamura2001HapticSurgery,
+  author={Okamura, Allison M and Simone, Fabio and O'Leary, Michael D},
+  journal={IEEE Engineering in Medicine and Biology Magazine},
+  title={{Force feedback for robotic surgery}},
+  year={2001},
+  volume={20},
+  number={3},
+  pages={26-30},
+  doi={10.1109/51.928236}
+}
+
+@article{Maier2015ImageGuidedSurgery,
+  author={Maier, R. and Schick, F. and Heger, D. and Klink, C. D. and Gessat, M. and Roth, J. and Schipper, J. and Weiler, J. and Nickel, F. and Dillmann, R.},
+  journal={International Journal of Computer Assisted Radiology and Surgery},
+  title={{The role of image guidance for robotic-assisted surgery – A review}},
+  year={2015},
+  volume={10},
+  number={10},
+  pages={1587-1604},
+  doi={10.1007/s11548-015-1219-5}
+}
+
+@article{Wang2020DeepLearningTissue,
+  author={Wang, Haichong and Li, Zhen and Xu, Lei and Zhang, Li and Zhang, Jie and Zheng, Yuanjie and Yan, Guizhi},
+  journal={IEEE Transactions on Medical Imaging},
+  title={{Deep Learning for Real-time Tissue Classification in Robotic Surgery}},
+  year={2020},
+  volume={39},
+  number={6},
+  pages={2174-2184},
+  doi={10.1109/TMI.2019.2957134}
+}
+
+@article{Xia1997ChirpSignals,
+  author={Xia, Xiang-Gen},
+  journal={IEEE Transactions on Signal Processing},
+  title={{System Identification Using Chirp Signals and Time-Variant Filters in the Joint Time-Frequency Domain}},
+  year={1997},
+  volume={45},
+  number={8},
+  pages={2072-2084},
+  month={aug}
+}
+
+@article{MARTINSEN20208130,
+title = {Combining system identification with reinforcement learning-based MPC},
+journal = {IFAC-PapersOnLine},
+volume = {53},
+number = {2},
+pages = {8130-8135},
+year = {2020},
+note = {21st IFAC World Congress},
+issn = {2405-8963},
+doi = {https://doi.org/10.1016/j.ifacol.2020.12.2294},
+url = {https://www.sciencedirect.com/science/article/pii/S2405896320329542},
+author = {Andreas B. Martinsen and Anastasios M. Lekkas and Sébastien Gros},
+keywords = {Reinforcement Learning, Model predictive control, System identification},
+abstract = {In this paper we propose and compare methods for combining system identification (SYSID) and reinforcement learning (RL) in the context of data-driven model predictive control (MPC). Assuming a known model structure of the controlled system, and considering a parametric MPC, the proposed approach simultaneously: a) Learns the parameters of the MPC using RL in order to optimize performance, and b) fits the observed model behaviour using SYSID. Six methods that avoid conflicts between the two optimization objectives are proposed and evaluated using a simple linear system. Based on the simulation results, hierarchical, parallel projection, nullspace projection, and singular value projection achieved the best performance.}
+}
+
+@patent{US20230309921A1,
+  title={Robotic surgical system with improved control based on actuator characterization},
+  author={Thierry Oddos and Georgios Stamatas and Catherine Coret and Jonathan Hourihane and Alan D. Irvine}, 
+  assignee={Intuitive Surgical, Inc.},
+  year={2023},
+  number={US20230309921A1},
+  url={https://patents.google.com/patent/US20230309921A1}
+}
+@article{Fontanelli2017ModellingAI,
+  title={Modelling and identification of the da Vinci Research Kit robotic arms},
+  author={Giuseppe Andrea Fontanelli and Fanny Ficuciello and Luigi Villani and Bruno Siciliano},
+  journal={2017 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  year={2017},
+  pages={1464-1469},
+  url={https://api.semanticscholar.org/CorpusID:1928260}
+}
+
+@article{doi:10.1126/scirobotics.abm6074,
+author = {Steven Macenski  and Tully Foote  and Brian Gerkey  and Chris Lalancette  and William Woodall },
+title = {Robot Operating System 2: Design, architecture, and uses in the wild},
+journal = {Science Robotics},
+volume = {7},
+number = {66},
+pages = {eabm6074},
+year = {2022},
+doi = {10.1126/scirobotics.abm6074},
+URL = {https://www.science.org/doi/abs/10.1126/scirobotics.abm6074},
+eprint = {https://www.science.org/doi/pdf/10.1126/scirobotics.abm6074},
+abstract = {The next chapter of the robotics revolution is well underway with the deployment of robots for a broad range of commercial use cases. Even in a myriad of applications and environments, there exists a common vocabulary of components that robots share—the need for a modular, scalable, and reliable architecture; sensing; planning; mobility; and autonomy. The Robot Operating System (ROS) was an integral part of the last chapter, demonstrably expediting robotics research with freely available components and a modular framework. However, ROS 1 was not designed with many necessary production-grade features and algorithms. ROS 2 and its related projects have been redesigned from the ground up to meet the challenges set forth by modern robotic systems in new and exploratory domains at all scales. In this Review, we highlight the philosophical and architectural changes of ROS 2 powering this new chapter in the robotics revolution. We also show through case studies the influence ROS 2 and its adoption has had on accelerating real robot systems to reliable deployment in an assortment of challenging environments. This Review describes ROS 2’s design, features, and performance with four case studies on land, air, sea, and even space.}}
+
+@mastersthesis{walder2022design,
+  title={{Design and validation of a teleoperated surgical training system}},
+  author={Walder, Alexander},
+  year={2022},
+  school={Management Center Innsbruck},
+  type={Master of Science in Engineering},
+  address={Innsbruck},
+  supervisor={Kim, Yeongmi},
+  note={Student ID: 2010869015}
+}
+
+@article{Messner2025Teleoperative,
+  title={Design and Development of a scaled-down Teleoperative Surgical Robotic System for Training Applications},
+  author={Messner, Michael},
+  year={2025}
 }
 
 @misc{ref19,

@@ -1,9 +1,50 @@
 % !TeX TXS-program:compile = txs:///pdflatex/[--shell-escape] %
 
 \documentclass[a4paper,oneside,11pt]{scrreprt}
+\usepackage{listings} % Essential for typesetting code snippets
 % This document class 'scrreprt' is suitable for reports and theses, providing 'chapter' as the highest sectioning level.
 % For shorter works, 'scrartcl' could be used, where 'section' is the highest level (no 'chapter').
 % \documentclass[a4paper,bibtotoc,oneside]{scrbook} % Another option for books/theses with bibliography in ToC
+
+\usepackage[utf8]{inputenc} % For proper handling of UTF-8 characters
+\usepackage{amsmath} % Provides environments for equations (e.g., align, gather) and math commands
+\usepackage{amsfonts} % Provides additional math fonts (e.g., blackboard bold)
+\usepackage{amssymb} % Provides additional math symbols
+\usepackage{graphicx} % For including images (e.g., diagrams if you add them later)
+\usepackage{amsthm} % Provides environments for theorems, definitions, etc. (optional, but good practice)
+\usepackage{physics} % A useful package for common physics notations, like \qty for quantity and unit
+\usepackage{siunitx} % For proper typesetting of units (e.g., \SI{15}{\degree})
+\usepackage{geometry} % For easily setting page margins and dimensions
+\usepackage{xcolor} % For custom colors, often used with listings for syntax highlighting
+
+\usepackage{booktabs}
+\usepackage{multirow}
+
+% --- Custom Settings for Code Listings ---
+% This block defines how your code snippets will look.
+\lstset{
+    basicstyle=\ttfamily\small,     % Font style for the code (monospace, small size)
+    columns=fullflexible,           % Allows flexible column width, good for long lines
+    breaklines=true,                % Enables automatic line breaking for long lines
+    tabsize=4,                      % Sets the number of spaces for a tab character
+    showstringspaces=false,         % Don't show special characters for spaces in strings
+    commentstyle=\color{gray},      % Color for comments in the code
+    keywordstyle=\color{blue},      % Color for programming language keywords
+    stringstyle=\color{purple},     % Color for string literals
+    numbers=left,                   % Places line numbers on the left side of the code block
+    numberstyle=\tiny\color{gray},  % Style for the line numbers (tiny, gray)
+    frame=single,                   % Draws a single frame around the code block
+    frameround=!!!!,                % Makes the corners of the frame rounded
+    rulesepcolor=\color{gray},      % Color of the separator line between the frame and the code
+    backgroundcolor=\color{white},  % Background color of the code block
+    captionpos=b,                   % Positions the caption below the code block (b for bottom)
+    breakatwhitespace=true,         % Allows line breaks at whitespace
+    % Specific to C++ language highlighting
+    language=C++,
+    morekeywords={JointAngles, constrain_value, static_cast}, % Custom keywords to highlight
+    literate={*}{{$\cdot$}}1        % Replaces '*' with a multiplication dot symbol
+}
+% --- End of Custom Settings for Code Listings ---
 
 % --- Language and Encoding Settings ---
 \usepackage[utf8]{inputenc} % Ensures proper handling of UTF-8 characters
@@ -18,7 +59,7 @@
 \usepackage{graphicx} % Enables inclusion of images
 \usepackage{booktabs} % Enhances the appearance of tables with professional rules (toprule, midrule, bottomrule)
 \usepackage{caption}  % Provides enhanced caption customization for figures and tables
-
+\usepackage{multirow} % Add this line
 % --- TikZ for Diagrams ---
 \usepackage{tikz} % Main package for creating vector graphics
 \usetikzlibrary{shapes,arrows,positioning,calc}
@@ -116,6 +157,8 @@ ouppercase
 \tableofcontents % Generates the table of contents
 \newpage % Starts a new page after the table of contents
 
+
+
 % --- Main Body (Arabic Numerals) ---
 \setcounter{romancount}{\value{page}} % Stores the last Roman page number
 \setcounter{page}{1} % Resets page counter to 1
@@ -144,5 +187,6 @@ ouppercase
 \appendix % Starts the appendix section
     \input{appendix/Matlab.tex} % Includes MATLAB-related appendix content
     \input{appendix/Jupyter} % Includes Jupyter-related appendix content
+    \input{appendix/source_code.tex}
 
 \end{document}

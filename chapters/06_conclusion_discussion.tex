@@ -1,18 +1,28 @@
 \chapter{Conclusion and Future Work}
 \label{chapter:conclusion}
 
-
-\section{Summary of Research Objectives}
-\label{section:summary_objectives}
+The research aims of this project were successfully achieved. The system software architecture was updated from an Arduino C-based implementation to a more modern ROS 2 software framework. Additionally, the overall system performance was drastically improved through more robust system identification and control methods.
 
 \section{Key Findings}
 \label{section:key_findings}
 
+Updating the software framework provided few quantitative performance improvements; however, qualitatively, the system framework is now more scalable. The SDF model allows for future work in collision detection, and the node-based architecture of the ROS 2 system created a robust platform for future development.
+
+The improved system identification and control methods provided clear performance gains. Both the maximum and average positional error seen by the system were drastically reduced in all trials, and the system achieved smooth and stable performance during trajectory tracking.
+
+
 \section{Limitations}
 \label{section:limitations}
+
+Throughout this research, significant hardware limitations became apparent. The original system was designed for ease of manufacturing and assembly, which led to many components being 3D printed. While this method was a simple and low-cost way to create the complex geometries required, the low stiffness of the plastic parts resulted in poor system performance.
+
+During movement, the end-effector tip could be seen oscillating, a behavior that would be unacceptable in clinical procedures. Furthermore, prolonged use revealed that the components exhibited plastic creep. Many linkages warped beyond their specified tolerances, causing binding within the system and, in some instances, overcoming press-fits and disassembling during operation. Finally, the capstan cable tension proved inconsistent, frequently loosening and rendering previous system identifications obsolete. 
 
 \section{Recommendations for Future Work}
 \label{section:future_work}
 
+Before further research is conducted, it is recommended that the system's hardware be improved. The superstructure of the joints should be redesigned for increased stiffness, and more robust assembly methods must be employed. Additionally, a more consistent tensioning method for the capstan drives should be implemented, or the reduction technique must be changed altogether.
+
 \section{Final Remarks}
-\label{section:final_remarks}
+
+Despite its hardware shortcomings, the objectives of this research were achieved. The system's software architecture was updated to a modern ROS 2 standard, and its performance was greatly improved through more robust identification and control techniques. While the system still requires improvements before it can replicate clinical procedures, the research conducted in this paper lays the groundwork for future development.

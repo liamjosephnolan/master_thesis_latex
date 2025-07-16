@@ -12,7 +12,6 @@
 \lstset{numbers=left,numberstyle=\tiny,stepnumber=5,numbersep=5pt}
 
 % erweiterte Zeichenbefehle
-\usepackage[per-mode = symbol]{siunitx}
 \usepackage{pst-all}
 
 % Kopfzeilen frei gestaltbar
@@ -47,39 +46,14 @@
 \captionsetup{font=small,belowskip=12pt,aboveskip=4pt}
 \usepackage{subcaption}
 
-% für floatbarrier
+% f"ur floatbarrier
 \usepackage{placeins}
 
 \usepackage{ifthen}
 
 % H"ohe und Breite des Textk"orpers etwas gr"osser definieren
-\usepackage[tmargin=1in,bmargin=1in,lmargin=1.25in,rmargin=1.25in]{geometry}
 
 % Quellcode
-\usepackage{minted}
-\usemintedstyle{emacs}
-%%C
-\newmintinline{c}{}
-\newminted{c}{frame=single,
-framesep=2mm,
-baselinestretch=0.8,
-fontsize=\footnotesize,
-linenos}
-%%Python
-\newminted{python}{frame=single,
-framesep=2mm,
-baselinestretch=0.8,
-breaklines,
-%fontsize=\small,
-linenos}
-%% Matlab
-\newminted{matlab}{frame=single,
-framesep=2mm,
-baselinestretch=0.8,
-breaklines,
-%fontsize=\small,
-linenos}
-
 \sisetup{input-digits = 0123456789\pi}%
 
 % Referenzierung
@@ -89,7 +63,7 @@ linenos}
 \newcommand{\kreis}[1]{\unitlength1ex\begin{picture}(2.5,2.5)%
 \put(0.75,0.75){\circle{2.5}}\put(0.75,0.75){\makebox(0,0){#1}}\end{picture}}
 
-% für inline figures
+% f"ur inline figures
 \usepackage{scalerel}
 
 % Einr"uckung von und Abstand zwischen Abs"atzen

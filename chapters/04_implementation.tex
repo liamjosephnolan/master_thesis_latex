@@ -37,9 +37,7 @@ Initially, the research aimed for the MTM Node to relay its joint angles to the 
 
 Specifically, although the target position extracted from the model demonstrated excellent real-time performance, a communication protocol breakdown was observed when the Joint Publisher Node interfaced with the Micro-ROS PSM Node. This breakdown was likely caused by memory limitations inherent to the Teensy 4.1 microcontroller, leading to high latency and noticeable data stuttering.
 
----
-
-Consequently, a simplified architecture was explored to overcome these real-time performance issues. This revised approach involves performing forward kinematics calculations of the target position directly within the MTM Node and streaming this data topic directly to the PSM Node. This simplification of the technical stack significantly improved real-time performance and reduced system complexity. This optimized architecture is presented in Figure \ref{fig:optimized_architecture}.
+Consequently, a simplified architecture was explored to overcome these real-time performance issues. This revised approach involves performing forward kinematics calculations of the target position directly within the MTM Node and streaming this data directly to the PSM Node. This simplification of the technical stack had the potential to increase real-time performance; however, it also increased the forward kinematics calculation complexity and eliminated the opportunity to use the SDF model for further research. This architecture is presented in Figure \ref{fig:optimized_architecture}.
 
 \begin{figure}[h!]
     \centering
@@ -51,51 +49,116 @@ Consequently, a simplified architecture was explored to overcome these real-time
         % Arrows
         \draw[arrow] (mtm) -- (psm);
     \end{tikzpicture}
-    \caption{Optimized ROS 2 System Architecture for Direct Target Pose Streaming.}
+    \caption{Simplified ROS 2 System Architecture for Direct Target Pose Streaming.}
     \label{fig:optimized_architecture}
 \end{figure}
+
+Ultimately, this simplified architecture was not chosen. The elimination of the SDF model would result in limitation of future research resources and as a result the initial architecture was chosen, and further development efforts were undertaken to eliminate the data loss issues previously discussed.
 
 \subsection{MTM Modeling and Visualization}
 
 For the modeling of the MTM, the Simulation Description Format (SDF) was chosen due to its compatibility with ROS 2 and RViz. SDF also supports complex kinematic structures, including closed-chain kinematics, which is crucial for accurately modeling the more intricate four-bar style linkages found in the Patient Side Manipulator (PSM).
 
-Generating the SDF file proved to be a fairly involved process. First, the CAD model of the MTM system was imported into SolidWorks. To reduce computational complexity, the model underwent significant simplification. Parts were condensed into their respective links, identified as follows:
-
-\begin{itemize}
-    \item Base
-    \item J1 (Joint 1)
-    \item J2 (Joint 2)
-    \item J3 (Joint 3)
-    \item G3 (Gimbal Link 3)
-    \item G2 (Gimbal Link 2)
-    \item G1 (Gimbal Link 1)
-    \item G0 (Gimbal Link 0)
-\end{itemize}
-
+Generating the SDF file proved to be a fairly involved process. First, the CAD model of the MTM system was imported into SolidWorks. To reduce computational complexity, the model underwent significant simplification. Parts were condensed into their respective links, identified as Base, J1 (Joint 1), J2 (Joint 2), J3 (Joint 3), G3 (Gimbal Link 3), G2 (Gimbal Link 2), G1 (Gimbal Link 1), and G0 (Gimbal Link 0).
 Each of these components was created as a singular solid part and then reassembled within SolidWorks into a complete assembly.
 
 Following this, rotational axes and origins were assigned for each link. A SolidWorks plugin was then utilized to export the model into a Universal Robot Description Format (URDF) file. This URDF file was subsequently converted to SDF using a dedicated software tool, \textit{ros2\_sdf\_to\_urdf} (further citation needed). Upon the successful generation of the SDF model, a Python launch file was developed to facilitate quick and easy visualization of this model within RViz.
 
 The final result of this effort can be seen below in Figure \ref{fig:mtm_sdf_model}.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\linewidth]{figures/mtm_sdf_model.png}
-    \caption{SDF model of MTM}
+    \includegraphics[width=0.9\linewidth]{figures/mtm_sdf_model.png}
+    \caption{SDF model of MTM shown in the RViz environment. The gimbal solid models have been hidden in this model}
     \label{fig:mtm_sdf_model}
 \end{figure}
+
+\subsection{MicroROS Implementation}
+
+Since the teensy 4.1 does not support the full ROS 2 stack, MicroROS was utilized to allow the microcontroller to communicate with the ROS 2 system. MicroROS is a lightweight version of ROS 2 designed for microcontrollers and resource-constrained devices. It provides a subset of the ROS 2 features, enabling communication between nodes while maintaining low memory and processing overhead. 
+
+In order to set up MicroROS on the Teensy 4.1, the following procedure was implemented in both the MTM and PSM nodes to initalize the MicroROS environment:
+
+\begin{enumerate}
+    \item \textbf{Include Micro-ROS Platform Header:}
+    The necessary header for the PlatformIO Micro-ROS integration is included. This header provides the functions required to bridge Arduino's serial communication with Micro-ROS.
+\begin{lstlisting}[language=C++, caption={Include Micro-ROS PlatformIO Header}, label={lst:microros_include}]
+#include <micro_ros_platformio.h>
+\end{lstlisting}
+
+    \item \textbf{Set Serial Transport:}
+    The serial port (in this case, \texttt{Serial}) is configured as the communication transport for Micro-ROS. This is crucial for the Micro-ROS agent to communicate with the embedded device.
+\begin{lstlisting}[language=C++, caption={Set Micro-ROS Serial Transport}, label={lst:microros_serial_transport}]
+Serial.begin(921600);
+set_microros_serial_transports(Serial);
+delay(2000); // Give time for connection to establish
+\end{lstlisting}
+
+    \item \textbf{Initialize Allocator:}
+    Micro-ROS requires a memory allocator. The default allocator is obtained and used for subsequent memory management within the ROS 2 context on the microcontroller.
+\begin{lstlisting}[language=C++, caption={Initialize Micro-ROS Allocator}, label={lst:microros_allocator}]
+allocator = rcl_get_default_allocator();
+\end{lstlisting}
+
+    \item \textbf{Initialize Support Structure:}
+    The \texttt{rclc\_support\_init} function initializes the Micro-ROS support structure, which is a fundamental component for managing the ROS 2 context, including the node and its entities.
+\begin{lstlisting}[language=C++, caption={Initialize Micro-ROS Support Structure}, label={lst:microros_support_init}]
+RCCHECK(rclc_support_init(&support, 0, NULL, &allocator));
+\end{lstlisting}
+
+    \item \textbf{Initialize ROS 2 Node:}
+    A ROS 2 node is created with a specified name (here, \texttt{"mtm\_arm\_node"}). The node is the primary entity in ROS 2 that can publish or subscribe to topics.
+\begin{lstlisting}[language=C++, caption={Initialize ROS 2 Node}, label={lst:microros_node_init}]
+RCCHECK(rclc_node_init_default(&node, "mtm_arm_node", "", &support));
+\end{lstlisting}
+
+    \item \textbf{Initialize Publishers:}
+    Three publishers are initialized to send messages on specific topics:
+
+\begin{lstlisting}[language=C++, caption={Initialize Micro-ROS Publishers}, label={lst:microros_publishers}]
+RCCHECK(rclc_publisher_init_default(
+  &joint_state_publisher,
+  &node,
+  ROSIDL_GET_MSG_TYPE_SUPPORT(sensor_msgs, msg, JointState),
+  "mtm_joint_states"));
+
+RCCHECK(rclc_publisher_init_default(
+  &raw_values_publisher,
+  &node,
+  ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, Float32MultiArray),
+  "mtm_raw_values"));
+
+RCCHECK(rclc_publisher_init_default(
+  &target_pose_publisher,
+  &node,
+  ROSIDL_GET_MSG_TYPE_SUPPORT(sensor_msgs, msg, JointState),
+  "/target_pose"));
+\end{lstlisting}
+    Note that memory for the message data (\texttt{joint\_state\_msg}, \texttt{raw\_values\_msg}, \texttt{target\_pose\_msg}) is allocated and populated after the publishers are initialized.
+
+    \item \textbf{Initialize Executor:}
+    Finally, the Micro-ROS executor is initialized. The executor is responsible for managing the execution of callbacks associated with subscriptions, timers, and other ROS 2 entities. In this case, it's set up to handle one concurrent item.
+\begin{lstlisting}[language=C++, caption={Initialize Micro-ROS Executor}, label={lst:microros_executor_init}]
+RCCHECK(rclc_executor_init(&executor, &support.context, 1, &allocator));
+\end{lstlisting}
+\end{enumerate}
+
+
+
+
+\begin{enumerate}
+    \setcounter{enumi}{7} % Continue numbering from the previous list
+    \item \textbf{Run Micro-ROS Agent:} After the Micro-ROS node is initialized and running on the embedded device, a Micro-ROS agent on the Linux machine can be started with the following command:
+\begin{lstlisting}[language=bash, caption={Run Micro-ROS Agent Command}, label={lst:microros_agent_command}]
+ros2 run micro_ros_agent micro_ros_agent serial --dev /dev/ttyACM0
+\end{lstlisting}
+\end{enumerate}
 
 \subsection{MTM Data Streaming and filtering}
 
 The MTM node's primary purpose is to process incoming sensor data and broadcast it into the \texttt{ROS2} workspace in a usable format. The following topics are published into the \texttt{ROS2} workspace from the MTM:
 
----
-
-The MTM node's primary purpose is to process incoming sensor data and broadcast it into the \texttt{ROS2} workspace in a usable format. The following topics are published into the \texttt{ROS2} workspace from the MTM:
-
----
-
-\begin{table}[h!]
+\begin{table}[H]
     \centering
     \caption{MTM \texttt{ROS2} Topics}
     \label{tab:mtm_ros2_topics}
@@ -107,10 +170,12 @@ The MTM node's primary purpose is to process incoming sensor data and broadcast 
         \hline
         \texttt{mtm\_raw\_values} & \texttt{std\_msgs/msg/Float32MultiArray} & Unfiltered raw sensor data for debugging. \\
         \hline
-        \texttt{12target\_pose} & \texttt{sensor\_msgs/msg/JointState} & Calculated Cartesian (x, y, z) position of the end-effector in meters. \\
+        \texttt{target\_pose} & \texttt{sensor\_msgs/msg/JointState} & Calculated Cartesian (x, y, z) position of the end-effector in meters. \\
         \hline
     \end{tabular}
 \end{table}
+
+It was noticed initially that the \texttt{mtm\_joint\_state} topic had quite noisy data, resulting in jitter in the systems that subscribed to this topic. As a result, a simple low-pass filter with an alpha value of 0.1 was applied to this data before being published. This significantly reduced noise in the published signal and greatly improved system performance.
 
 \subsection{MTM to PSM Communication Protocol}
 
@@ -118,7 +183,7 @@ As previously established in Section 4.1, there are two separate paths for data 
 
 A critical aspect of both communication paths is ensuring \textbf{Quality of Service (QoS)} protocol matching. QoS allows for the definition of how topics are communicated between nodes. Ensuring that communicating nodes utilize appropriate and compatible QoS protocols is essential for software reliability and robustness. For this research, the QoS reliability and queue depth were modified to ensure proper message delivery.
 
-Initially, an issue arose with the communication protocol between the SDF model and the PSM node. Data streamed from the SDF model was published to the \texttt{/model\_pose} topic. When this data was plotted, it exhibited high quality with zero latency or lag. However, when the PSM topic \texttt{/psm\_joint\_telemetry} subscribed to \texttt{/model\_pose}, a significant loss of data occurred, resulting in lag and stuttering. This led to unacceptable system performance. After extensive diagnostics, the data performance was improved by drastically increasing the publishing rate from 100\,Hz to 1000\,Hz, increasing the queue depth from 10 to 20, and applying the following QoS profile:
+Initially, an issue arose with the communication protocol between the SDF model and the PSM node. Data streamed from the SDF model was published to the \texttt{/model\_pose} topic. When this data was plotted, it exhibited high quality with zero latency or lag. However, when the PSM topic \texttt{/psm\_joint\_telemetry} subscribed to \texttt{/model\_pose}, a significant loss of data occurred, resulting in lag and stuttering. This led to unacceptable system performance. This issue can be seen in Figure \ref{fig:data_loss_before_qos}. After extensive diagnostics, the data performance was improved by drastically increasing the publishing rate from 100\,Hz to 1000\,Hz, increasing the queue depth from 10 to 20, and applying the following QoS profile:
 
 \begin{itemize}
     \item \textbf{Reliability:} \texttt{RELIABLE}
@@ -130,29 +195,97 @@ Initially, an issue arose with the communication protocol between the SDF model 
     \item \textbf{Liveliness lease duration:} Infinite
 \end{itemize}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figures/bad_data.png}
+    \caption{Severe data loss and stuttering observed in \texttt{/psm\_joint\_telemetry} when subscribing to \texttt{/model\_pose} before QoS profile adjustments. The bottom plot is the published target position and the upper plot is the calculated joint angle. The lack of fidelity in the the calculated joint angle can clearly be seen.}
+    \label{fig:data_loss_before_qos}
+\end{figure}
+
 Increasing the publishing rate to such a drastic level required careful memory consideration to avoid overwhelming the limited memory of the PSM's Teensy 4.1. As a result, the \texttt{model\_pose} message type was changed from a \texttt{JointTelemetry} message type to a \texttt{JointState} message type to reduce memory strain.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\linewidth]{figures/bad_data.png}
-    \caption{Enter Caption}
-    \label{fig:bad_data_placeholder}
-\end{figure}
+The specific implementation of the QoS profile can be seen in the following code:
+
+\begin{lstlisting}[language=C++, caption={Custom QoS Profile Definition}, label={lst:custom_qos_profile}]
+    rmw_qos_profile_t custom_qos = {
+    RMW_QOS_POLICY_HISTORY_KEEP_LAST,   // history
+    15,                                // depth (queue size)
+    RMW_QOS_POLICY_RELIABILITY_RELIABLE, // reliability
+    RMW_QOS_POLICY_DURABILITY_VOLATILE,  // durability
+    {0, 0},                            // deadline (rmw_time_t sec, nsec)
+    {0, 0},                            // lifespan
+    RMW_QOS_POLICY_LIVELINESS_SYSTEM_DEFAULT, // liveliness
+    {0, 0},                            // liveliness lease duration
+    false                             // avoid_ros_namespace_conventions
+    };
+\end{lstlisting}
 
 \subsection{PSM Software}
 
 The PSM software node's primary responsibility is the control of the physical PSM system. While this task may appear simple on the surface, its implementation was quite complex, requiring several different software components to work together cohesively.
 
-The PSM node had two primary modes:
+The PSM node had three primary modes:
 
 \begin{itemize}
     \item \textbf{Target Mode:} In this mode, the PSM node received target joint angles from the MTM node and the Joint Publisher Node. The PSM would then drive the system to these target angles using a control algorithm. This mode was primarily used for the normal operation of the PSM.
-    \item \textbf{Verification Mode:} In this mode, the PSM followed a predetermined trajectory to verify the system's performance. This mode was primarily used for testing and validation purposes.
+    \item \textbf{Sine Mode:} In this mode, the PSM followed a sinusoidal trajectory to verify the system's performance. This mode was primarily used for testing and validation purposes in the case of smooth, predictable motion.
+    \item \textbf{Trajectory Mode:} In this mode, the PSM followed a predefined trajectory path generated by moving the MTM. This was used to verify the PSM performance between control strategies across a consistent, real-world desired trajectory.
 \end{itemize}
 
-In both modes, the primary codebase remained the same, consisting of a \texttt{main.cpp} file and multiple helper files. The primary difference between the modes was the subscription to the target pose topic. In Target Mode, the PSM node subscribed to the \texttt{/mtm\_target\_pose} topic, while in Verification Mode, it generated its own target pose trajectory and was completely self-contained.
+The mode was defined in the beginning of the script with the String variable control\_mode. In these modes, the primary codebase remained the same, consisting of a \texttt{main.cpp} file and multiple helper files. The main difference between the modes was how the desired target position was generated. In Target Mode, the PSM node subscribed to the \texttt{/mtm\_target\_pose} topic. In Sin Mode, it generated a sinusoidal joint angle trajectory based on predetermined amplitude and period parameters. In Trajectory Mode, the MTM was used to generate a trajectory path, which was then stored as a list in a header file for the PSM to parse as a series of desired target positions.
 
-In Target Mode, the PSM node subscribed to two different topics. For overall positioning of the system, it subscribed to the \texttt{/target\_pose} topic generated by the Joint Publisher Node. This topic provided the target position in an \texttt{x, y, z} format. The PSM node then used this target position to calculate the necessary joint angles to achieve this position. Additionally, to determine the desired tool angles, it subscribed to the \texttt{/mtm\_joint\_states} topic. This topic provided the current gimbal angles of the MTM system, which were used to calculate the necessary joint angles for the PSM system.
+Sin and Trajectory mode were only intended to be verification modes used to verify the performance of the control algorithms for the pitch and roll joints. As a result, the tool was left undriven in these modes and only the overall x,y,z target was considered. 
+
+In Target Mode, the tool positioning was considered and as a result the PSM node subscribed to two different topics. For overall positioning of the system, it subscribed to the \texttt{/target\_pose} topic generated by the Joint Publisher Node. This topic provided the target position in an \texttt{x, y, z} format. The PSM node then used this target position to calculate the necessary joint angles to achieve this position. Additionally, to determine the desired tool angles, it subscribed to the \texttt{/mtm\_joint\_states} topic. This topic provided the current gimbal angles of the MTM system, which were used to calculate the necessary joint angles for the PSM system.
+
+The actual calculation of the desired joint angles differed across the operational modes. In Sine Mode, the generated trajectory was already in the form of joint angles, allowing the joints to be directly commanded to their desired position without further calculation.
+
+For both Trajectory Mode and Target Mode, additional calculations were required to convert the intended $(x, y, z)$ target position to the actual desired joint angles. For this calculation, the function \texttt{computePSMJointAngles}, contained within the auxiliary file \texttt{psm\_compute\_joint\_angles.cpp}, was used. This function took an $(x, y, z)$ target position as input and returned a custom structure \texttt{JointAngles} containing the desired joint angles. The following demonstrates the mathematics behind this calculation. 
+
+
+Let $x, y, z$ be the Cartesian coordinates of the target position. The joint angles are defined as:
+
+\begin{itemize}
+    \item \textbf{Insertion Distance ($q_3$):} This is the Euclidean distance from the origin to the target point, representing the linear extension of the insertion joint.
+    $$q_3 = \sqrt{x^2 + y^2 + z^2}$$
+    \item \textbf{Pitch Angle ($q_2$):} This angle is derived from the x and y coordinates represnting the roll angle. The $\operatorname{atan2}(x, y)$ function correctly handles quadrants.
+    $$q_2 = \frac{1}{4} \operatorname{atan2}(x, y)$$
+    The result is then constrained within $[-30^\circ, 30^\circ]$.
+    \item \textbf{Yaw Angle ($q_1$):} This angle is derived from the z and y coordinates, representing the pitch angle.
+    $$q_1 = -\frac{1}{4} \operatorname{atan2}(z, y)$$
+    The result is then constrained within $[-30^\circ, 30^\circ]$.
+\end{itemize}
+
+
+The actual implementation of these calculations can be seen in the following C++ code snippet:
+\begin{figure}[H] % Placement specifiers: h=here, t=top, b=bottom, p=page of floats
+    \centering % Centers the listing within the figure
+    \begin{lstlisting}[caption={C++ Function for Joint Angle Calculation}, label={lst:joint_angle_calc}]
+    // Function to compute PSM joint angles from Cartesian coordinates
+    JointAngles computePSMJointAngles(double x, double y, double z) {
+        JointAngles angles;
+
+        // Compute insertion distance (q3) as the Euclidean distance
+        angles.q3 = static_cast<float>(std::sqrt(x * x + y * y + z * z));
+
+        // Compute pitch angle (q2) in degrees and constrain
+        double pitch = (std::atan2(x, y) * 180.0 / M_PI) / 4.0;
+        pitch = constrain_value(pitch, -30.0, 30.0); // Assuming constrain_value is defined
+        angles.q2 = static_cast<float>(pitch);
+
+        // Compute yaw angle (q1) in degrees and constrain
+        double yaw = -(std::atan2(z, y) * 180.0 / M_PI) / 4.0;
+        yaw = constrain_value(yaw, -30.0, 30.0); // Assuming constrain_value is defined
+        angles.q1 = static_cast<float>(yaw);
+
+        return angles;
+    }
+    \end{lstlisting}
+    \caption{This is an optional caption for the figure itself.} % Optional figure caption
+    \label{fig:joint_angle_listing} % Optional label for the figure
+\end{figure}
+
+
 
 In an effort to modularize the codebase and improve readability the PSM software was broken up into several different files, each responsible for a specific functionality. The following is a list of the primary files in the PSM software codebase:
 
@@ -214,21 +347,23 @@ From this comparison, it was determined that the model accuracy was quite low wh
 
 Due to the kinematics of the system, the force required of the motors at various joint positions will vary. As the roll angle diverges farther from 0 in both the negative and positive direction, there is an increase in gravitational forces seen by the actuators, and as a result, the voltage applied to the motor would need to be increased accordingly. This trend is theoretically illustrated in Figure~\ref{fig:roll_voltage_trend}.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/Roll_Subsystem_Theoretical_Trend.png}
+    \includegraphics[width=0.7\textwidth]{figures/Roll_Subsystem_Theoretical_Trend.png}
     \caption{Theoretical trend of absolute motor voltage required for the roll subsystem as a function of roll angle.}
     \label{fig:roll_voltage_trend}
 \end{figure}
 
-For the pitch subsystem, the force required by the actuator actually decreases as the joint moves through its range of motion from -30 degrees to 30 degrees. The theoretical voltage required for the pitch subsystem across its range of motion is shown in Figure~\ref{fig:pitch_voltage_trend}.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
-\includegraphics[width=0.8\textwidth]{figures/Pitch_Subsystem_Theoretical_Trend.png}
+\includegraphics[width=0.75\textwidth]{figures/Pitch_Subsystem_Theoretical_Trend.png}
     \caption{Theoretical trend of required motor voltage for the pitch subsystem as a function of pitch angle.}
     \label{fig:pitch_voltage_trend}
 \end{figure}
+
+For the pitch subsystem, the force required by the actuator actually decreases as the joint moves through its range of motion from -30 degrees to 30 degrees. The theoretical voltage required for the pitch subsystem across its range of motion is shown in Figure~\ref{fig:pitch_voltage_trend}.
+
 
 Additionally, complexities are added to the system dynamics when one realizes that the force required by the roll subsystem is also coupled to the pitch subsystem's position. As the pitch subsystem's angle is increased, the force required by the roll subsequently changes due to the system's center of mass changing position.
 
@@ -260,8 +395,72 @@ Once the necessary characterization points were established, the system needed t
 
 Upon the completion of each system identification trial, the resulting system response was saved in a CSV file under the following format: \texttt{IDENTIFIEDJOINT\_ROLLANGLE\_PITCHANGLE.csv}. A MATLAB script was then used to parse each of these files, identify the system at that point, and store and plot the system identification results.
 
+The specific implementation of the multi-point system identification for the roll joint is as follows:
+
+\textbf{Data Loading and Preprocessing}
+The raw sensor data is loaded from a CSV file. For the Roll system, a step response is analyzed. The data is then trimmed to isolate the relevant section around the step change, and normalized by subtracting initial values to focus on the system's response to the step input.
+
+\begin{figure}[h!]
+\centering
+\begin{lstlisting}[caption={Roll Data Loading and Preprocessing}, label={lst:roll_data_prep}]
+% Read CSV file with preserved headers
+roll_data = readtable('roll_step.csv', 'VariableNamingRule', 'preserve');
+% Extract time and normalize
+roll_time = roll_data.time - roll_data.time(1);
+% Extract roll data using original column names
+roll_position = roll_data.('roll_position');
+roll_velocity = roll_data.('roll_velocity');
+roll_effort = roll_data.('roll_effort');
+
+% Find step change time and trim data
+velocity_threshold = 0.1;
+roll_step_idx = find(abs(diff(roll_velocity)) > velocity_threshold, 1);
+roll_trim_idx = roll_step_idx:min(roll_step_idx+500, length(roll_time));
+
+% Prepare data for system ID (normalize to start from zero)
+roll_y = roll_position(roll_trim_idx) - roll_position(roll_trim_idx(1));
+roll_t = roll_time(roll_trim_idx) - roll_time(roll_trim_idx(1));
+roll_u = roll_velocity(roll_trim_idx) - roll_velocity(roll_trim_idx(1));
+\end{lstlisting}
+\end{figure}
+
+\textbf{System Identification (Transfer Function Estimation)}
+Next, a 2nd-order transfer function is estimated from the preprocessed input-output data using the \texttt{tfest} function. The \texttt{iddata} object encapsulates the input, output, and sampling time.
+
+\begin{figure}[h!]
+\centering
+\begin{lstlisting}[caption={Roll Transfer Function Estimation}, label={lst:roll_tfest}]
+% Prepare data for system ID
+roll_data_iddata = iddata(roll_y, roll_u, mean(diff(roll_t)));
+% Fit transfer function (2nd-order)
+roll_sys = tfest(roll_data_iddata, 2);
+\end{lstlisting}
+\end{figure}
+The estimated transfer function \texttt{roll\_sys} is then converted to a state-space representation (\texttt{roll\_ss\_sys}) to facilitate LQR design.
+
+\textbf{State-Space Matrix Extraction and Controllability Check}
+After obtaining the transfer function, it is converted into a state-space representation. This form provides the system matrices (\texttt{A}, \texttt{B}, \texttt{C}, \texttt{D}) which are essential for designing state-feedback controllers like LQR. The controllability is than checked by examining the rank of the controllability matrix.
+
+\begin{figure}[h!]
+\centering
+\begin{lstlisting}[caption={Roll State-Space Extraction and Controllability Check}, label={lst:roll_statespace_controllability}]
+% Convert to state-space
+roll_ss_sys = ss(roll_sys);
+roll_A = roll_ss_sys.A;
+roll_B = roll_ss_sys.B;
+roll_C = roll_ss_sys.C;
+roll_D = roll_ss_sys.D;
+% Check controllability
+if rank(ctrb(roll_A, roll_B)) == size(roll_A, 1)
+    disp('Roll System is controllable');
+else
+    error('Roll System is uncontrollable! Check model.');
+end
+\end{lstlisting}
+\end{figure}
 \section{Controller Theory and Design}
-The controller design was paramount to this research; a high emphasis was placed on system performance, and proper controller design would directly drive this. As a result, a large amount of effort was put into both the design and tuning of the controller.
+
+After system identification was performed, a controller can be designed for the specific system. The controller design was paramount to this research; a high emphasis was placed on system performance, and proper controller design would directly drive this. As a result, a large amount of effort was put into both the design and tuning of the controller.
 
 \subsection{Original PID Controller}
 
@@ -290,11 +489,98 @@ Initially, several types of controllers were considered for this system. Model P
 
 \subsection{Gain Scheduling and Adaptive Control}
 
-It was clear that due to varying system dynamics across the system's range of motion, adaptive control or gain scheduling would be a very valuable asset in improving system performance. Adaptive control involves online estimation of unknown or time-varying system parameters, or direct adjustment of controller parameters based on real-time performance feedback. In contrast, gain scheduling is a pre-programmed approach where controller parameters are adjusted based on a known, measurable "scheduling variable."
+It was clear that due to varying system dynamics across the system's range of motion, adaptive control or gain scheduling would be a very valuable asset for improving system performance. Adaptive control involves online estimation of unknown or time-varying system parameters, or direct adjustment of controller parameters based on real-time performance feedback. In contrast, gain scheduling is a pre-programmed approach where controller parameters are adjusted based on a known, measurable "scheduling variable."
 
 With relatively little additional computational power and complexity, the control gains could be calculated and interpolated based on the system's position, making gain scheduling an excellent candidate for improving system performance.
 
+After the previously discussed multi-point system identification, a set of gains was calculated for each characterization point. These gains were then stored in tables, and the controller would interpolate between these gains based on the current position of the system using the following code.
 
+\begin{figure}[h!]
+    \centering
+    \begin{lstlisting}[language=C++, caption={Linear Interpolation for Gain Scheduling}, label={lst:gain_interpolation}]
+    // === Linear interpolation between two values ===
+    double interpolate(double x, double x0, double x1, double y0, double y1) {
+        return y0 + (y1 - y0) * ((x - x0) / (x1 - x0));
+    }
+    \end{lstlisting}
+    \end{figure}
+
+The gains used for the roll and pitch subsystems are presented in \autoref{tbl:kp_roll}, \autoref{tbl:kd_roll}, \autoref{tbl:kp_pitch}, \autoref{tbl:kd_pitch}, and \autoref{tbl:ki_pitch}. These gains were calculated based on the system identification results and were tuned to achieve optimal performance at each characterization point.
+
+\begin{table}[H]
+    \centering
+    \caption{Roll Proportional Gain ($K_p$) Table}
+    \label{tbl:kp_roll}
+    \begin{tabular}{cccc} % Changed from {|c|c|c|c|}
+    \toprule % Changed from \hline
+    \textbf{Pitch / Roll} & \textbf{-15} & \textbf{0} & \textbf{15} \\
+    \midrule % Changed from \hline
+    \textbf{Pitch = -20} & 135.41 & 135.41 & 137.91 \\
+    \textbf{Pitch = 0}   & 136.23 & 132.23 & 130.12 \\
+    \textbf{Pitch = +20} & 137.36 & 135.77 & 131.78 \\
+    \bottomrule % Changed from \hline
+    \end{tabular}
+    \end{table}
+    
+    \begin{table}[H]
+    \centering
+    \caption{Roll Derivative Gain ($K_d$) Table}
+    \label{tbl:kd_roll}
+    \begin{tabular}{cccc} % Changed from {|c|c|c|c|}
+    \toprule % Changed from \hline
+    \textbf{Pitch / Roll} & \textbf{-15} & \textbf{0} & \textbf{15} \\
+    \midrule % Changed from \hline
+    \textbf{Pitch = -20} & 0.6527 & 1.0829 & 0.43766 \\
+    \textbf{Pitch = 0}   & 0.6854 & 0.7588 & 0.4810 \\
+    \textbf{Pitch = +20} & 0.6579 & 1.0788 & 0.42543 \\
+    \bottomrule % Changed from \hline
+    \end{tabular}
+    \end{table}
+    
+    \begin{table}[H]
+    \centering
+    \caption{Pitch Proportional Gain ($K_p$) Table}
+    \label{tbl:kp_pitch}
+    \begin{tabular}{cccc} % Changed from {|c|c|c|c|}
+    \toprule % Changed from \hline
+    \textbf{Pitch / Roll} & \textbf{-15} & \textbf{0} & \textbf{15} \\
+    \midrule % Changed from \hline
+    \textbf{Pitch = -20} & 188.07 & 195.37 & 191.11 \\
+    \textbf{Pitch = 0}   & 161.41 & 166.32 & 167.01 \\
+    \textbf{Pitch = +20} & 153.37 & 155.56 & 151.23 \\
+    \bottomrule % Changed from \hline
+    \end{tabular}
+    \end{table}
+    
+    \begin{table}[H]
+    \centering
+    \caption{Pitch Derivative Gain ($K_d$) Table}
+    \label{tbl:kd_pitch}
+    \begin{tabular}{cccc} % Changed from {|c|c|c|c|}
+    \toprule % Changed from \hline
+    \textbf{Pitch / Roll} & \textbf{-15} & \textbf{0} & \textbf{15} \\
+    \midrule % Changed from \hline
+    \textbf{Pitch = -20} & 0.3124 & 0.3256 & 0.3154 \\
+    \textbf{Pitch = 0}   & 0.3671 & 0.3671 & 0.3272 \\
+    \textbf{Pitch = +20} & 0.3643 & 0.3374 & 0.3576 \\
+    \bottomrule % Changed from \hline
+    \end{tabular}
+    \end{table}
+    
+    \begin{table}[H]
+    \centering
+    \caption{Pitch Integral Gain ($K_i$) Table}
+    \label{tbl:ki_pitch}
+    \begin{tabular}{cccc} % Changed from {|c|c|c|c|}
+    \toprule % Changed from \hline
+    \textbf{Pitch / Roll} & \textbf{-15} & \textbf{0} & \textbf{15} \\
+    \midrule % Changed from \hline
+    \textbf{Pitch = -20} & 0.143744 & 0.185649 & 0.164665 \\
+    \textbf{Pitch = 0}   & 0.135649 & 0.153566 & 0.155123 \\
+    \textbf{Pitch = +20} & 0.124432 & 0.155649 & 0.134566 \\
+    \bottomrule % Changed from \hline
+    \end{tabular}
+    \end{table}
 
 \subsection{LQR and LQI Control}
 
@@ -316,6 +602,111 @@ For LQI control, the system is augmented with an integral of the error, and the 
 $$ J_{LQI} = \int_{0}^{\infty} (\mathbf{x}_{aug}^T(t) \tilde{Q} \mathbf{x}_{aug}(t) + \mathbf{u}^T(t) R \mathbf{u}(t)) \, dt $$
 where $\tilde{Q}$ is the augmented weighting matrix for the states, including a penalty on the integral error to drive it to zero.
 
+The following is a detailed implementation of the LQR and LQI controllers in the PSM software. 
+
+\textbf{Roll LQR Controller Implementation}
+
+The \texttt{compute\_roll\_LQR\_control} function calculates the control input for the roll axis. It uses the position error and a filtered velocity to determine the necessary control action.
+
+\textbf{State Calculation and Control Input}
+The controller first calculates the position error and estimates the current velocity using a low-pass filter to smooth out noise. These two values form the state vector for the LQR calculation. The control input is then computed as a linear combination of these states and the provided LQR gains.
+
+\begin{figure}[H]
+\centering
+\begin{lstlisting}[caption={Roll LQR Control Input Calculation}, label={lst:roll_lqr_control}]
+float compute_roll_LQR_control(float* gains, float commanded_position, float actual_position) {
+    static float previous_position_roll = 0.0f;
+    static unsigned long previous_time_roll = 0;
+    static float filtered_velocity_roll = 0.0f;
+    const float alpha = 0.9f;
+
+    unsigned long current_time = micros();
+    float delta_time = (current_time - previous_time_roll) / 1000000.0f;
+    if (delta_time <= 0.0f) delta_time = 0.000001f;
+
+    float raw_velocity = (actual_position - previous_position_roll) / delta_time;
+    filtered_velocity_roll = alpha * filtered_velocity_roll + (1.0f - alpha) * raw_velocity;
+
+    previous_position_roll = actual_position;
+    previous_time_roll = current_time;
+
+    float position_error = commanded_position - actual_position;
+    float state[2] = {position_error, filtered_velocity_roll};
+
+    float control_input = 0.0f;
+    for (int i = 0; i < 2; i++) {
+        control_input -= gains[i] * state[i];
+    }
+
+    return control_input;
+}
+\end{lstlisting}
+\end{figure}
+
+\textbf{Pitch LQR Controller Implementation (with Feedforward)}
+
+The \texttt{compute\_pitch\_LQR\_control} function implements an LQR controller for the pitch axis, enhanced with a feedforward component.
+
+\textbf{State Calculation, LQR, and Feedforward}
+Similar to the roll controller, the pitch controller calculates position error and velocity. The core LQR control input is derived from these states. Additionally, a feedforward term is computed based on the system's reference trajectory and its dynamics matrices (\texttt{A} and \texttt{B\_dagger}). This feedforward term anticipates the required control effort, improving tracking performance.
+
+\textbf{Pitch LQI Controller Implementation (with Feedforward)}
+
+The \texttt{compute\_pitch\_LQI\_control} function extends the LQR controller for the pitch axis by adding integral action, forming an LQI controller. This helps in eliminating steady-state errors.
+
+\textbf{Integral Action, State Calculation, and Control Input with Anti-Windup}
+In addition to position error and velocity, the LQI controller incorporates an accumulated \texttt{integral\_error}. This error is updated based on the current position error and delta time. The state vector now includes this integral term. The control input is calculated from these three states and the LQI gains. An anti-windup mechanism is also included to prevent the integral term from growing excessively when the control output hits its limits.
+
+\begin{figure}[H]
+\centering
+\begin{lstlisting}[caption={Pitch LQI Control with Feedforward}, label={lst:pitch_lqi_control}]
+float compute_pitch_LQI_control(float* gains, float commanded_position, float actual_position) {
+    static float previous_position_pitch = 0.0f;
+    static float previous_commanded_position_pitch = 0.0f;
+    static unsigned long previous_time_pitch = 0;
+    static float integral_error = 0.0f;
+    const float lambda = 0.0f;
+
+    const float A[2][2] = {{-4.3950, -2.3842}, {4.0000, 0.0}};
+    const float B_dagger[2][2] = {{0.5, 0.0}, {0.0, 0.0}};
+
+    unsigned long current_time = micros();
+    float delta_time = (current_time - previous_time_pitch) / 1000000.0f;
+    if (delta_time <= 0.0f) delta_time = 0.000001f;
+
+    float raw_velocity = (actual_position - previous_position_pitch) / delta_time;
+    previous_position_pitch = actual_position;
+    previous_time_pitch = current_time;
+
+    float position_error = commanded_position - actual_position;
+    integral_error += position_error * delta_time;
+
+    float state[3] = {position_error, raw_velocity, integral_error};
+
+    float control_input = 0.0f;
+    for (int i = 0; i < 3; i++) {
+        control_input -= gains[i] * state[i];
+    }
+
+    float x_ref_dot = (commanded_position - previous_commanded_position_pitch) / delta_time;
+    previous_commanded_position_pitch = commanded_position;
+
+    float x_ref[2] = {commanded_position, x_ref_dot};
+    float u_ff = 0.0f;
+    for (int i = 0; i < 2; i++) {
+        float Ax_ref = 0.0f;
+        for (int j = 0; j < 2; j++) {
+            Ax_ref += A[i][j] * x_ref[j];
+        }
+        u_ff += B_dagger[i][i] * (Ax_ref + x_ref_dot);
+    }
+
+    control_input += lambda * u_ff;
+
+    return control_input;
+}
+\end{lstlisting}
+\end{figure}
 
 \subsection{Feedforward Control}
 

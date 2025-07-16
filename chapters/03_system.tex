@@ -1,6 +1,6 @@
 \chapter{Desktop Teleoperated Surgical Training System}
 
-In an effort to further advance the field of robotic-assisted surgery, researchers at MCI have developed a Desktop Teleoperated Surgical Training System. The system's design was heavily inspired by the da Vinci Research Kit (DVRK) and Raven II, with a focus on maximizing performance while minimizing cost. This system serves as the foundation for the research outlined in this paper, so an understanding of its design and architecture is essential.
+In an effort to further advance the field of robotic-assisted surgery, researchers at MCI have developed a Desktop Teleoperated Surgical Training System. The system's design was heavily inspired by the da Vinci Research Kit (dVRK) and Raven II, with a focus on maximizing performance while minimizing cost. This system serves as the foundation for the research outlined in this paper, so an understanding of its design and architecture is essential.
 
 \section{Overall System Architecture}
 
@@ -11,164 +11,175 @@ The system consists of two main components:
     \item The Patient Side Manipulator (PSM)
 \end{itemize}
 
-\subsection{Master Tool Manipulator (MTM)}
-The MTM is a serial-link manipulator that measures the operator's motion through a 7-DOF (degree-of-freedom) linkage, actuated by the user. It includes:
+While the system was conceptually designed to include both right and left Master Tool Manipulators (MTMs) and Patient Side Manipulators (PSMs), the scope of this research was limited to a single-sided setup. Consequently, only one MTM and one PSM were manufactured and developed.
 
-\begin{itemize}
-    \item 3 DOFs for tracking overall system position (J0--J2)
-    \item 4 DOFs for tracking gimbal position and state (G0--G3)
-\end{itemize}
+The MTM is a serial-link manipulator that measures the operator's motion and communicates it to the PSM, which replicates the movements at the surgical site. These individual systems will be explored further in the following sections, and an overview of the system can be seen in Figure~\ref{fig:system_overview}.
 
-This allows the operator to communicate desired motions to the PSM. The J0--J2 DOFs dictate the endpoint position, while G0--G3 control endpoint orientation and state.
+\begin{figure}[htb!] % Changed from [h] for better float placement
+    \centering
+    \includegraphics[width=1.0\linewidth]{figures/design/system_overview.png}
+    \caption{(PLACEHOLDER) Overview of the Desktop Teleoperated Surgical Training System, illustrating the Master Tool Manipulator (MTM) and Patient Side Manipulator (PSM) components.}
+    \label{fig:system_overview} % Renamed label for consistency
+\end{figure}
+
+
+\subsection{Master Tool Manipulator (MTM) Overview}
+
+The MTM is a serial-link manipulator that measures the operator's motion through a 7-DOF (degree-of-freedom) linkage, actuated by the user. Its associated degrees of freedom and their types are indicated in Table~\ref{tab:mtm_dofs_detailed}.
+
+\begin{table}[htb!] % Changed from [H] for better float placement
+    \centering
+    \caption{Master Tool Manipulator (MTM) Joint Classification and Positional Sensing.}
+    \label{tab:mtm_dofs_detailed}
+    \begin{tabular}{|l|l|l|}
+    \hline
+    \textbf{Joint Classification} & \textbf{Dof Name} & \textbf{Positional sensing} \\
+    \hline
+    \multirow{3}{*}{Overall system positioning} & J0 & \multirow{3}{*}{12-bit absolute magnetic encoder} \\
+    & J1 & \\
+    & J2 & \\
+    \hline
+    \multirow{4}{*}{Instrument positioning} & G0 & Hall Effect Sensor \\
+    \cline{2-3}
+    & G1 & \multirow{3}{*}{Analog Potentiometer} \\
+    & G2 & \\
+    & G3 & \\
+    \hline
+    \end{tabular}
+\end{table}
+
+These joints allow the operator to communicate desired motions to the PSM. The J0--J2 DOFs dictate the endpoint position, while G0--G3 control endpoint orientation and state.
 
 The MTM should allow for accurate interpretation of the operator's intended motion while also minimizing the force perceived by the operator. This perceived force requirement drove the design toward a gravity compensation system (GCS).
 
-\subsection{Patient Side Manipulator (PSM)}
-The PSM has 7 primary DOFs, divided into:
+An overview of the MTM with indications to the specific DOFs can be seen in Figure~\ref{fig:mtm_dofs}.
 
-\begin{itemize}
-    \item \textbf{Overall System Position:}
-        \begin{itemize}
-            \item Roll
-            \item Pitch
-            \item Insertion
-        \end{itemize}
-    \item \textbf{Surgical Instrument Control:}
-        \begin{itemize}
-            \item Instrument Roll
-            \item Instrument Pitch
-            \item Instrument Tilt
-            \item Instrument Open/Close
-        \end{itemize}
-\end{itemize}
-
-The system is actuated using:
-\begin{itemize}
-    \item Maxon brushless motors (for overall positioning)
-    \item Servo motors (for instrument control)
-\end{itemize}
-
-Position feedback is provided by three 12-bit absolute optical encoders, and force reduction is achieved through:
-\begin{itemize}
-    \item Capstan drives (for roll and pitch axes)
-    \item Rack-and-pinion (for insertion)
-\end{itemize}
-
-\begin{figure}[h]
+\begin{figure}[htb!] % Changed from [H] for better float placement
     \centering
-    \includegraphics[width=0.75\linewidth]{figures/design/system_overview.png}
-    \caption{Placeholder image of system}
-    \label{fig:system_overview_placeholder}
+    \includegraphics[width=1.0\linewidth]{figures/mtm_dofs.png} % Adjust width as needed
+    \caption{(PLACEHOLDER)Overview of the Master Tool Manipulator (MTM) with indicated Degrees of Freedom.}
+    \label{fig:mtm_dofs}
 \end{figure}
 
+\subsection{Patient Side Manipulator (PSM) Overview}
 
-\section{MTM Mechanical Design}
+The PSM has 7 primary Degrees of Freedom (DOFs), classified as shown in Table~\ref{tab:psm_dofs}.
 
-The Master Tool Manipulator (MTM) can be separated into two subsystems:
+
+\begin{table}[htb!] % Changed from [h!] for better float placement
+    \centering
+    \caption{Patient Side Manipulator (PSM) Joint Classification and Drive System.}
+    \label{tab:psm_dofs}
+    \setlength{\tabcolsep}{4pt} % Adjust this value (e.g., 2pt, 4pt) to fine-tune column spacing
+    \begin{tabular}{|p{3.0cm}|l|l|p{4.5cm}|} % Adjust p{} widths as needed
+    \hline
+    \textbf{Joint Class} & \textbf{DOF Name} & \textbf{Drive Type} & \textbf{Positional sensing} \\
+    \hline
+    \multirow{3}{3.0cm}{\centering Overall system positioning} & Roll & \multirow{3}{*}{Brushless DC Motor} & \multirow{3}{4.5cm}{\centering 12-bit absolute magnetic encoders} \\
+    & Pitch & & \\
+    & Insertion & & \\
+    \hline
+    \multirow{4}{3.0cm}{\centering Instrument positioning} & Instrument Roll & \multirow{4}{*}{Servo Motor} & \multirow{4}{4.5cm}{\centering Servo feedback} \\
+    & Instrument Pitch & & \\
+    & Instrument Tilt & & \\
+    & Instrument Grasp & & \\
+    \hline
+    \end{tabular}
+\end{table}
+
+
+An overview of the system with indications to the specific DOFs can be seen in Figure~\ref{fig:psm_overview}.
+
+\begin{figure}[htb!] % Changed from [H] for better float placement
+    \centering
+    \includegraphics[width=1.0\linewidth]{figures/psm_overview.png} % Adjust width as needed
+    \caption{(PLACEHOLDER) Overview of the Patient Side Manipulator (PSM) with indicated Degrees of Freedom.}
+    \label{fig:psm_overview}
+\end{figure}
+
+\section{Master Tool Manipulator (MTM) Mechanical Design}
+
+The Master Tool Manipulator (MTM) mechanical design can be separated into three subsystems:
 \begin{itemize}
     \item Arm (J0-J2)
     \item Gimbal (G0-G3)
+    \item Superstructure
 \end{itemize}
 
-The arm subsystem refers to the overall architecture which is responsible for measuring the operator's position with respect to (w.r.t.) the global reference frame. Three revolute joints with internal optical encoders are coupled via rigid aluminum extrusions, allowing for accurate estimation of the overall system positioning in 3D space, as shown in Figure~\ref{fig:mtm_overview}.
+The arm subsystem is the primary architecture responsible for measuring the operator's position relative to the global reference frame. Three revolute joints with internal absolute magnetic encoders are coupled via rigid aluminum extrusions, allowing accurate estimation of the overall system positioning in 3D space.
 
-\begin{figure}[h]
+The Gimbal subsystem, which is responsible for measuring the desired surgical instrument inputs, is a self-contained, 4-axis analog sensing apparatus. A 3D-printed shell contains the necessary analog sensing devices for determining the desired wrist position.
+
+The superstructure is an aluminum extrusion structure that offsets the arm and gimbal subsystems from the table to allow space for manipulation. An overview of the design of the MTM, with indications to each subsystem, can be seen in Figure~\ref{fig:mtm_overview}.
+
+\begin{figure}[htb!] % Changed from [h!] for better float placement
     \centering
-    \includegraphics[width=0.75\linewidth]{figures/mtm_overview.png}
-    \caption{Detailed depiction of the MTM's arm and wrist subsystems, with their individual components labeled.}
+    \includegraphics[width=1.0\linewidth]{figures/mtm_overview.png}
+    \caption{(PLACEHOLDER) Overview of the entire MTM system with indications to the subsystems.}
     \label{fig:mtm_overview}
 \end{figure}
 
-\subsection{Joints}
-The arm of the manipulator consists of three revolute joints connecting the four links of the MTM arm. Table~\ref{tab:mtm_joints} summarizes these joints and provides a description of their function.
+\subsection{Superstructure Design}
 
-\begin{table}[h]
-\centering
-\caption{Summary and description of revolute (R) joints of the MTM's arm \cite{ref19,ref20}.}
-\label{tab:mtm_joints}
-\begin{tabular}{|c|c|l|p{8cm}|}
-\hline
-\textbf{MTM Joint} & \textbf{Joint Type} & \textbf{Joint Name} & \textbf{Description} \\
-\hline
-1 & R & Shoulder pitch & This joint moves the entire MTM and carries out pitch rotation similar to joint 3. \\
-\hline
-2 & R & Shoulder yaw & This joint is responsible for adduction and abduction movement of the operator. \\
-\hline
-3 & R & Elbow pitch & This joint is the second pitch joint of the MTM. Together with joint 1, it is responsible for up/down and forward/backward motion. \\
-\hline
-\end{tabular}
-\end{table}
+The superstructure design is relatively straightforward. With no moving parts, it is purely designed to offer a platform on which the more complicated mechanics of the MTM can be mounted.
 
-The design of these joints was driven by the requirement to minimize friction. Increased frictional forces in any of these joints would result in an increase in perceived force by the operator. As visible in Figure~\ref{fig:mtm_detailed}, roller bearings were utilized to minimize these frictional forces, and system mass was also reduced to lower both gravitational and inertial forces felt by the operator.
+Several pieces of 20mm x 20mm aluminum extrusion are bolted together, offering a stable and modular platform. Previously, a 3D-printed piece held an Arduino Mega at the top of the superstructure, but this was updated to hold a Teensy 4.1 on the main superstructure beam to allow for easier access and wiring. The superstructure can be seen in Figure~\ref{fig:superstructure}.
 
-\begin{figure}[h]
+\begin{figure}[htb!] % Changed from [h!] for better float placement
     \centering
-    \includegraphics[width=0.75\linewidth]{figures/mtm_detailed.png}
-    \caption{Exploded view of the MTM components (excluding EWCU fixation) showing the updated training console design. Key improvements include: (1) circlip for axial safeguarding, (2) PTFE thrust washer to eliminate bearing clearance effects while maintaining low friction, and (3) reduced wear characteristics.}
-    \label{fig:mtm_detailed}
+    \includegraphics[width=1.0\linewidth]{figures/superstructure.png} % Adjust width as needed
+    \caption{(PLACEHOLDER) Overview of the MTM superstructure.}
+    \label{fig:superstructure}
 \end{figure}
 
+\subsection{Arm Joint Design}
+
+The arm joints of the MTM feature relatively straightforward designs. The arm subsystem is rigidly coupled to the superstructure with a 3D-printed block, to which the origin of the arm's J0 joint is connected. Each joint is a simple revolute joint, directly coupled to a magnetic encoder. These joints are then rigidly connected to each other through aluminum tubing, held in place by set screws. A detailed exploration of the J1 joint can be seen in Figure~\ref{fig:J1_detailed}. 
+
+\begin{figure}[H] 
+    \centering
+    \includegraphics[width=1.00\linewidth]{figures/J1_detailed.png} 
+    \caption{Detailed view of the MTM's J1 joint design \cite{walder2022design}} 
+    \label{fig:J1_detailed} 
+\end{figure}
+
+The design of these joints was driven by the requirement to minimize friction. Increased frictional forces in any of these joints would result in an increase in perceived force by the operator. Roller bearings were utilized to minimize these frictional forces, and system mass was also reduced to lower both gravitational and inertial forces felt by the operator. However, in an effort to completely minimize forces felt by the operator, a Gravity Compensation System (GCS) was implemented into the J0 joint.
+
+The GCS consists of a brass cylinder, carefully massed to offset the gravitational forces felt by the system. The exact placement and mass of this cylinder were algorithmically determined in Alexander Walder's paper \textit{Design and validation of a teleoperated surgical training system} \cite{walder2022design} A detailed view of the mechanical design of this system can be seen in Figure~\ref{fig:GCS_detailed}.
+
+\begin{figure}[H] % Changed from [H] for better float placement
+    \centering
+    \includegraphics[width=1.0\linewidth]{figures/GCS_detailed.png}
+    \caption{Detailed overview of the MTM's GCS design. \cite{walder2022design}}
+    \label{fig:GCS_detailed}
+\end{figure}
 
 \section{MTM Electrical Architecture}
 
-\subsection{System Overview}
-The MTM (Master Tool Manipulator) electrical architecture was originally based around an Arduino Mega 2560 microcontroller that served as both the primary controller and system I/O interface. This configuration was later upgraded to a Teensy 4.1 microcontroller due to its superior performance and compatibility with ROS2 and micro-ROS frameworks.
 
-The system incorporates multiple sensor subsystems to monitor and control the robotic arm's movements. Each side of the arm is equipped with sensors for:
-\begin{itemize}
-    \item Shoulder pitch (J0)
-    \item Shoulder yaw (J1)
-    \item Elbow pitch (J2)
-    \item Wrist orientation (G0-G2)
-    \item Grasper state (G3)
-\end{itemize}
+\subsection{System Overview}
+The MTM electrical architecture was originally based on an Arduino Mega 2560 microcontroller, which served as both the primary controller and system I/O interface. This configuration was later upgraded to a Teensy 4.1 microcontroller due to its superior performance and compatibility with ROS2 and micro-ROS frameworks.
+
+The system incorporates multiple sensor subsystems to monitor and control the robotic arm's movements. Each DOF of the MTM is equipped with its own independent sensor for full positional sensing.
 
 \subsection{Joint Subsystems (J0-J2)}
-Joints J0-J2 are equipped with AEAT-6012-A06 12-bit absolute magnetic encoders (resolution: 4096 counts/revolution) directly coupled to each joint axis. These encoders provide a positional accuracy of $\pm 0.088^\circ$ ($360^\circ/4096$) per joint, enabling precise positional feedback for the control system.
-
-\begin{itemize}
-    \item \textbf{Shoulder Pitch (J0)}: Magnetic encoder provides precise feedback on shoulder pitch position
-    \item \textbf{Shoulder Yaw (J1)}: Magnetic encoder measures shoulder yaw angle
-    \item \textbf{Elbow Pitch (J2)}: Magnetic encoder monitors elbow pitch movement
-\end{itemize}
-
-The encoder signals are connected directly to the Teensy 4.1's digital I/O pins through a noise-resistant shielded cable assembly.
+Joints J0-J2 are equipped with AEAT-6012-A06 12-bit absolute magnetic encoders (resolution: 4096 counts/revolution) directly coupled to each joint axis. These encoders provide a positional accuracy of $\pm 0.088^\circ$ ($360^\circ/4096$) per joint, enabling precise positional feedback for the control system. The encoder signals are connected directly to the Teensy 4.1's digital I/O pins and are supplied 5V power directly from the Teensy 4.1.
 
 \subsection{Wrist Subsystem (G0-G3)}
-The wrist subsystem underwent significant design evolution:
+The wrist subsystem underwent significant design evolution. Initially, the wrist sensing utilized an MPU-6050 3-DOF IMU coupled with a Hall effect sensor for full positional sensing of the wrist subsystem. However, during the course of this research, this subsystem was updated to replace the IMU with a series of three potentiometers coupled to a Hall effect sensor. G0 is measured using a Hall effect sensor on a lever arm linkage. This is then coupled to a modified FJN10K-C0 two-axis joystick potentiometer, which handles the angular sensing of G1 and G2. This joystick is coupled to the G3 potentiometer through a 3D-printed linkage. The exact sensors used for each wrist DOF are as follows:
+
 \begin{itemize}
-    \item \textbf{Initial Design}: Utilized an MPU-6050 IMU (3-DOF) for wrist orientation sensing and a Hall effect sensor for grasper state detection
-    \item \textbf{Issues Encountered}: Noticeable drift occurred in the IMU during prolonged operation
-    \item \textbf{Final Implementation}: Replaced with analog potentiometers for wrist position detection (G0-G2) while retaining the Hall effect sensor for grasper state detection (G3)
+    \item \textbf{G0}:  SS495A Hall Effect Sensor
+    \item \textbf{G1-G2}: FJN10K-C0 two-axis joystick potentiometer
+    \item \textbf{G3}: 3382H-1-103 Potentiometer
 \end{itemize}
 
-The MPU-6050 IMU provided the following measurement capabilities:
-\begin{itemize}
-    \item 3-axis accelerometer ($\pm 2/4/8/16$ g configurable)
-    \item 3-axis gyroscope ($\pm 250/500/1000/2000^\circ$/s configurable)
-\end{itemize}
-
-\subsection{Connectivity}
-All wrist sensors (G0-G3) connect to the Teensy 4.1's analog I/O pins through a 7-strand flat flexible cable (FFC) with the following specifications:
-\begin{itemize}
-    \item Pitch: 0.5mm
-    \item Current rating: 0.3A per conductor
-    \item Voltage rating: 50V
-    \item Temperature range: $-40^\circ$C to $+105^\circ$C
-\end{itemize}
-
-\subsection{Grip Subsystem}
-The grip detection system utilizes a Hall effect sensor to measure the position between the index finger and thumb components. Key characteristics include:
-\begin{itemize}
-    \item Sensing range: $\pm 50$mm
-    \item Resolution: 0.1mm
-    \item Output: Analog voltage (0-3.3V)
-\end{itemize}
+Each of these sensors is supplied 3.3V power from the Teensy 4.1, and their resultant analog signals are sent to the Teensy 4.1's analog input pins.
 
 \section{PSM Mechanical Design}
 
 \subsection{Overview}
-The Patient-Side Manipulator (PSM) mechanical architecture is a 7-degree-of-freedom (DOF) robotic system designed to replicate surgical instrument movements with high precision. The design is fundamentally inspired by the da Vinci Surgical System's remote center of motion (RCM) mechanism, which maintains a fixed pivot point at the surgical incision site - a critical feature for minimally invasive surgery. The PSM can be divided into five primary subsystems:
+The Patient-Side Manipulator mechanical architecture is a 7-degree-of-freedom robotic system designed to replicate surgical instrument movements with high precision. The design is fundamentally inspired by the da Vinci Surgical System's remote center of motion mechanism, which maintains a fixed pivot point at the surgical incision site - a critical feature for minimally invasive surgery. The PSM can be divided into five primary subsystems:
 
 \begin{itemize}
     \item Superstructure and base
@@ -179,196 +190,119 @@ The Patient-Side Manipulator (PSM) mechanical architecture is a 7-degree-of-free
 \end{itemize}
 
 \subsection{Superstructure}
-The superstructure serves as the foundational framework, constructed from 80/20 aluminum extrusion for both rigidity and modularity. This design provides:
-\begin{itemize}
-    \item Structural stability for the entire system
-    \item Mounting points for all electromechanical components
-    \item Vibration damping through its triangulated geometry
-    \item Accessibility for maintenance and upgrades
-\end{itemize}
+The superstructure serves as the foundational framework, constructed from 80/20 aluminum extrusion for both rigidity and modularity. The base of the superstructure also houses the necessary electronics for the control of the PSM. An overview of the superstructure can be seen in Figure~\ref{fig:psm_superstructure_overview}. % Assuming a new figure or a specific PSM superstructure image
 
-The aluminum extrusion profile (40mm × 40mm, series 8) was selected for its excellent strength-to-weight ratio and compatibility with standard motion components.
+\begin{figure}[htb!] % Added placement specifier
+    \centering
+    \includegraphics[width=1.0\linewidth]{figures/superstructure.png} 
+    \caption{(PLACEHOLDER) Overview of the PSM superstructure.} 
+    \label{fig:psm_superstructure_overview}
+\end{figure}
 
-\subsection{Roll (Yaw) Axis}
-The roll axis implements a revolute joint providing $\pm$90$^\circ$ of rotation about the vertical axis, corresponding to the da Vinci system's first DOF.
+\subsection{Roll Axis}
+The roll axis implements a revolute joint providing $\pm 30^\circ$ of rotation about the vertical axis. The system rotates in two roller bearings attached to the superstructure with a Commercial Off-The-Shelf bearing block. A laser-cut acrylic wheel serves as the capstan drive of the system and is clamped to the central shaft. This wheel is connected to a brushless DC motor via steel cabling, offering a 20:1 reduction in a zero-backlash setup. This shaft terminates in a forked aluminum extrusion structure, to which the pitch subsystem connects. A limit switch is attached to the superstructure to allow for zeroing of the system.
 
-\begin{itemize}
-    \item \textbf{Drive System}: Maxon EC-4pole 30 brushless DC motor (50W) coupled to a 20:1 Capstan drive
-    \item \textbf{Transmission}: Zero-backlash Capstan drive (0.1 arc-minute repeatability)
-    \item \textbf{Bearing System}: Two NSK LH-series linear bearing blocks supporting a 16mm ground aluminum shaft
-    \item \textbf{Position Sensing}: Broadcom HEDS-5540 optical encoder (500 CPR)
-    \item \textbf{Safety}: Omron D2F-L-A1 limit switches at $\pm$90$^\circ$ travel limits
-\end{itemize}
+This design offered a simple way to achieve precise, zero-backlash performance in an easy-to-assemble and low-cost package. A detailed depiction of this subsystem can be seen in Figure~\ref{fig:roll_detailed}.
 
-The roll axis terminates in an aluminum fork structure that supports both the pitch and insertion axes, maintaining the kinematic chain.
+\begin{figure}[htb!] % Added placement specifier
+    \centering
+    \includegraphics[width=1.0\linewidth]{figures/roll_detailed.png}
+    \caption{Detailed view of the mechanical design of the roll axis, highlighting the main shaft design. \cite{walder2022design}}
+    \label{fig:roll_detailed}
+\end{figure}
+
+To minimize forces seen by the actuator, a gravity compensation system (GCS) was applied to this joint. This GCS consisted of two adjustable brass counterweights hanging directly below the capstan drive. Their mass and placement were once again algorithmically determined by previous research conducted by Alexander Walder \cite{walder2022design}. A detailed view of the design of this GCS can be seen in Figure~\ref{fig:PSM_GCS}.
+
+\begin{figure}[htb!] % Added placement specifier (requires \usepackage{float} if using [H], but [htb!] is generally better)
+    \centering
+    \includegraphics[width=1.00\linewidth]{figures/PSM_GCS.png}
+    \caption{A detailed view of the PSM's pitch and roll GCS design.\cite{walder2022design}}
+    \label{fig:PSM_GCS}
+\end{figure}
+
 
 \subsection{Pitch Axis}
-The pitch axis replicates the da Vinci's characteristic parallelogram mechanism, which creates a virtual RCM approximately 50mm distal to the joint - matching typical trocar insertion depths.
+The pitch axis replicates the Da Vinci's characteristic parallelogram mechanism, which creates a virtual RCM distal to the joint. For ease of manufacturing, much of the PSM's pitch subsystem was designed to be 3D-printed, and for ease of assembly, many of the couplings were press-fits. This led to sagging of the mechanism and resulted in some of the linkages requiring maintenance during prolonged operation, but, overall, the linkage design was sound and maintained a remote center.
 
-\begin{itemize}
-    \item \textbf{Mechanism}: Dual-parallelogram linkage with 3D-printed ABS components
-    \item \textbf{Drive System}: Maxon EC-4pole 30 motor with identical 20:1 Capstan drive
-    \item \textbf{Range of Motion}: $\pm$45$^\circ$ from neutral position
-    \item \textbf{Advantages}:
-        \begin{itemize}
-            \item Maintains constant instrument orientation during arm motion
-            \item Creates natural RCM without complex constrained mechanisms
-            \item Reduces shear forces at the incision point
-        \end{itemize}
-\end{itemize}
+The pitch axis was coupled to the roll axis through the forked aluminum extrusion structure previously discussed in the PSM mechanical design section. Similar to the roll axis, the pitch axis was driven by a capstan drive system coupled to a brushless DC motor through steel cabling. A limit switch at the extreme limits of motion was once again used for zeroing the system, and the mechanism ultimately resulted in a $\pm 30^\circ$ range of motion. A detailed view of the pitch subsystem design can be seen in Figure~\ref{fig:pitch_detailed}.
 
-The 3D-printed design (Prusa MK3S+, 0.15mm layer height) was chosen for rapid prototyping and weight reduction, with critical joints reinforced with stainless steel pins.
+Once again, a GCS was designed for the pitch subsystem. This design followed similar trends to the roll axis, placing a brass counterweight below the axis to reduce the force seen by the actuator. The design of this can be seen in Figure~\ref{fig:PSM_GCS}. 
+
+
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[width=1.0\linewidth]{figures/pitch_detailed.png}
+    \caption{Detailed view of the PSM's pitch axis mechanism. \cite{walder2022design}}
+    \label{fig:pitch_detailed}
+\end{figure}
 
 \subsection{Insertion Axis}
-The prismatic insertion axis provides 200mm of linear travel, corresponding to the da Vinci's third DOF.
 
-\begin{itemize}
-    \item \textbf{Drive Mechanism}: HV7346MG servo (modified for continuous rotation) with rack-and-pinion transmission
-    \item \textbf{Guide System}: IGUS drylin linear rails (model RJ4JP-01-08)
-    \item \textbf{Position Sensing}: Integrated optical encoder with 0.1mm resolution
-    \item \textbf{Safety}: Dual Omron limit switches at travel extremes
-\end{itemize}
+The insertion axis design is relatively straightforward. A brushless DC motor coupled directly to a rack and pinion mechanism translates the rotary motion of the motor into the linear motion needed for the insertion axis. For ease of manufacturing, the majority of this mechanism was 3D-printed, and it was coupled to the pitch subsystem through a bolted connection via the end forks of the pitch linkage. For positional sensing, the carriage was coupled to an encoder through a belted connection. A detailed diagram of this subsystem can be seen in Figure~\ref{fig:insertion_detailed}.
 
-The rack-and-pinion system (module 0.5, 20$^\circ$ pressure angle) provides 96.5\% efficiency while maintaining the compact form factor required for surgical applications.
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[width=1.0\linewidth]{figures/insertion_detailed.png}
+    \caption{Detailed view of the PSM's insertion axis mechanism. \cite{walder2022design}}
+    \label{fig:insertion_detailed}
+\end{figure}
 
 \subsection{Tool Cart and End Effector}
-The tool cart integrates four degrees of freedom in a package matching Intuitive Surgical's instrument specifications:
+The tool cart is responsible for driving the surgical instrument. This system uses off-the-shelf Intuitive Surgical instruments. These instruments are driven by a belted disc mechanism internal to the instrument. The tool cart houses four servo motors coupled to these discs with a spring-loaded compliance mechanism, as shown in Figure~\ref{fig:tool_cart_detailed}.
 
-\begin{itemize}
-    \item \textbf{Actuation}: Four MG966R servos with spring-loaded coupling mechanisms
-    \item \textbf{Functions}:
-        \begin{itemize}
-            \item Instrument roll ($\pm$90$^\circ$)
-            \item Wrist pitch ($\pm$85$^\circ$)
-            \item Wrist yaw ($\pm$85$^\circ$)
-            \item Grasper actuation (0-100\%)
-        \end{itemize}
-    \item \textbf{Instrument Interface}: Compatible with Intuitive Surgical EndoWrist\textsuperscript{\textregistered} tools
-    \item \textbf{Coupling Mechanism}: Fail-safe magnetic coupling with 5N retention force
-\end{itemize}
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[width=1.0\linewidth]{figures/tool_cart_detailed.png}
+    \caption{Detailed view of the PSM's tool cart, highlighting the spring-loaded compliance mechanism. \cite{walder2022design}}
+    \label{fig:tool_cart_detailed}
+\end{figure}
 
-\subsection{Remote Center of Motion Implementation}
-The PSM's mechanical architecture replicates the da Vinci system's key innovation - the passive RCM mechanism. This is achieved through:
-
-\begin{itemize}
-    \item \textbf{Parallelogram Linkage}: Mathematically constrains motion to a fixed point
-    \item \textbf{Kinematic Design}: Aligns axes to intersect at the RCM point
-    \item \textbf{Clinical Benefits}:
-        \begin{itemize}
-            \item Minimizes tissue trauma at incision site
-            \item Provides intuitive instrument control
-            \item Reduces fulcrum effect during manipulation
-        \end{itemize}
-\end{itemize}
 
 
 \section{PSM Electrical Architecture}
 
-\subsection{System Overview}
-The Patient-Side Manipulator (PSM) electrical architecture is designed to meet stringent surgical robotic requirements, including:
-\begin{itemize}
-    \item Sub-millimeter positional accuracy ($\pm$0.2mm at instrument tip)
-    \item High dynamic response (bandwidth > 10Hz for all axes)
-    \item Fail-safe operation with redundant position verification
-    \item Low-latency control loops ($<$1ms cycle time)
-\end{itemize}
+The Patient-Side Manipulator (PSM) electrical architecture is based on a Teensy 4.1 as the main control unit. Table~\ref{tab:psm_specs} showcases each joint's associated electrical components.
 
-The system implements a distributed control architecture centered around a Teensy 4.1 microcontroller (600MHz ARM Cortex-M7), chosen for its:
-\begin{itemize}
-    \item Real-time performance capabilities
-    \item Extensive I/O options (28 PWM channels, 16 analog inputs)
-    \item Native USB 2.0 support for ROS2 integration
-    \item FPU support for advanced control algorithms
-\end{itemize}
-
-\subsection{Position Sensing System}
-\subsubsection{Primary Joint Sensing}
-\begin{itemize}
-    \item \textbf{Roll/Yaw Axis}: Broadcom HEDS-5540 optical encoder (500 CPR) with quadrature decoding
-    \item \textbf{Pitch Axis}: Broadcom HEDS-5540 optical encoder (500 CPR)
-    \item \textbf{Insertion Axis}: AMS AS5047P magnetic encoder (14-bit resolution, 0.022$^\circ$ accuracy)
-\end{itemize}
-
-\subsubsection{Secondary Verification}
-\begin{itemize}
-    \item Omron D2F-L-A1 mechanical limit switches at all travel extremes
-    \item Current sensing via INA219 shunt monitors (0.5\% accuracy)
-    \item Thermal monitoring on all motor drivers
-\end{itemize}
-
-\subsection{Motor Drive System}
-\subsubsection{Main Axes Actuation}
-\begin{table}[h]
-\centering
-\caption{Main Axes Drive Specifications}
-\begin{tabular}{|l|c|c|c|}
-\hline
-\textbf{Parameter} & \textbf{Roll} & \textbf{Pitch} & \textbf{Insertion} \\ \hline
-Motor & Maxon EC-4pole 30 & Maxon EC-4pole 30 & HV7346MG \\
-Voltage & 24V & 24V & 12V \\
-Continuous Current & 2.5A & 2.5A & 3.2A \\
-Peak Torque & 50mNm & 50mNm & 15kg-cm \\
-Driver & MD13S Cytron & MD13S Cytron & MD13S Cytron \\
-Control Mode & PID Velocity & PID Position & PID Position \\
-Bandwidth & 500Hz & 500Hz & 300Hz \\ \hline
-\end{tabular}
+\begin{table}[htb!]
+    \centering
+    \caption{PSM Joint Specifications} % You can adjust the caption as needed
+    \label{tab:psm_specs} % You can adjust the label as needed
+    % p{0.15\linewidth} for Joint column (approx 15% of text width)
+    % p{0.25\linewidth} for Drive Motor (approx 25%)
+    % p{0.25\linewidth} for Motor Driver (approx 25%)
+    % p{0.27\linewidth} for Positional Sensing (approx 27%)
+    % Total width ~0.92\linewidth, leaving some margin.
+    \begin{tabular}{|p{0.15\linewidth}|p{0.25\linewidth}|p{0.25\linewidth}|p{0.27\linewidth}|}
+        \hline
+        \textbf{Joint} & \textbf{Drive Motor} & \textbf{Motor Driver} & \textbf{Positional Sensing} \\
+        \hline
+        Pitch & \multirow{3}{=}{\centering Maxon 273752 15V DC motor} & \multirow{3}{=}{\centering MD13S Cytron 13 Amp} & \multirow{3}{=}{\centering Broadcom HEDS-5540 encoder} \\
+        Roll & & & \\
+        Insertion & & & \\
+        \hline
+        Tool Roll & \multirow{4}{=}{\centering MG966r Servo} & \multirow{4}{=}{\centering None} & \multirow{4}{=}{\centering Servo Feedback} \\
+        Tool Tilt & & & \\
+        Tool Pitch & & & \\
+        Tool Grasp & & & \\
+        \hline
+    \end{tabular}
 \end{table}
 
-\subsubsection{Servo Control Implementation}
-The wrist subsystem utilizes four MG966R servos modified for continuous rotation and external position control:
-\begin{itemize}
-    \item \textbf{Control Method}: PWM (1-2ms pulse width) with 12-bit resolution
-    \item \textbf{Position Feedback}: Internal potentiometer (10k$\Omega$, 300$^\circ$ range)
-    \item \textbf{External Verification}: AS5600 magnetic encoders on output shafts
-    \item \textbf{Spring Coupling}: 0.5N/mm preloaded springs ensure zero backlash
-\end{itemize}
+A diagram detailing the electrical schematics of the system can be seen in Figure~\ref{fig:psm_electrical_schematics}.
 
-\subsection{Safety and Calibration}
-The system implements a comprehensive safety architecture:
-\begin{itemize}
-    \item Dual-channel limit switch verification (mechanical + optical)
-    \item Watchdog timer (100ms timeout) on all motor drivers
-    \item Current limiting at both driver and software levels
-    \item Automatic homing sequence on startup:
-    \begin{enumerate}
-        \item Seek limit switch at reduced velocity (10\% max)
-        \param{Back off 5mm from limit}
-        \item Establish encoder zero position
-    \end{enumerate}
-\end{itemize}
-
-\subsection{Control Architecture}
-The Teensy 4.1 implements the following control scheme:
-\begin{itemize}
-    \item \textbf{Sampling Rate}: 1kHz for all critical loops
-    \item \textbf{Algorithm}: Adaptive PID with velocity feedforward
-    \item \textbf{Communication}:
-    \begin{itemize}
-        \item ROS2 interface (micro-ROS) @ 100Hz
-        \item CAN bus for motor drivers (1Mbps)
-        \item I$^2$C for sensors (400kHz fast mode)
-    \end{itemize}
-    \item \textbf{State Estimation}: Kalman filter combining encoder and IMU data
-\end{itemize}
-
-\subsection{Power Distribution}
-\begin{itemize}
-    \item \textbf{Main Bus}: 24V DC (Mean Well LRS-350-24)
-    \item \textbf{Logic Power}: 5V/3A buck converter (TI TPS5430)
-    \item \textbf{Protection}:
-    \begin{itemize}
-        \item Polyfuses on all outputs
-        \item TVS diodes for surge protection
-        \item Star grounding for noise reduction
-    \end{itemize}
-\end{itemize}
+\begin{figure}[htb!] % Added placement specifier for better float management
+    \centering
+    \includegraphics[width=0.85\linewidth]{figures/PSM_electrical.png}
+    \caption{Electrical schematics of the PSM system. \cite{walder2022design} }
+    \label{fig:psm_electrical_schematics} % A unique label for referencing
+\end{figure}
 
 \section{System Software Architecture}
 \label{sec:software_architecture}
 
 As noted earlier in this paper, the initial software framework was implemented in an Arduino C-based environment. While the system has since been migrated to a ROS 2 architecture, the original implementation remains relevant for context and reference.
 
-The software was divided into two primary components: the \textbf{Master Tool Manipulator (MTM)} software and the \textbf{Patient Side Manipulator (PSM)} software. These subsystems worked in tandem to enable real-time teleoperation, with the MTM capturing user inputs and the PSM replicating movements precisely.
+The software was divided into two primary components: the Master Tool Manipulator (MTM) software and the Patient Side Manipulator (PSM) software. These subsystems worked in tandem to enable real-time teleoperation, with the MTM capturing user inputs and the PSM replicating movements precisely.
 
 \subsection{MTM Software}
 The MTM software was responsible for:
@@ -376,8 +310,7 @@ The MTM software was responsible for:
 \begin{enumerate}
     \item \textbf{Sensor Data Acquisition}:
     \begin{itemize}
-        \item Reading six absolute magnetic encoders, two IMUs (Inertial Measurement Units), and two Hall effect sensors (eight sensor values per MTM arm)
-        \item Distinguishing between left and right-arm data for independent kinematic processing
+        \item Reading relevant sensors and processing data
     \end{itemize}
     
     \item \textbf{Forward Kinematics}:
@@ -429,8 +362,57 @@ The PSM software replicated MTM movements using:
     \end{itemize}
 \end{enumerate}
 
+\section{System Controller Design}
+
+Previous research conducted on the platform resulted in a basic controller design. Initially, a Proportional-Integral-Derivative (PID) controller was designed using the Ziegler-Nichols method. This approach involved determining the critical gain ($K_{cr}$) and periodic time ($P_{cr}$) for each joint through root locus analysis, identifying where the dominant poles intersected the imaginary axis. These values were then used with the McCormack tuning rules to calculate the initial PID constants, as presented in Table \ref{tab:pid_constants}.
+
+\begin{table}[h!]
+    \centering
+    \caption{Initial PID Constants}
+    \label{tab:pid_constants}
+    \begin{tabular}{lccc}
+        \toprule
+        \textbf{Joint} & \textbf{Proportional gain ($K_p$)} & \textbf{Integral gain ($K_i$)} & \textbf{Derivative gain ($K_d$)} \\
+        \midrule
+        Roll & 35.0 & 50.0 & 5.0 \\
+        Pitch & 60.0 & 110.0 & 15.0 \\
+        Insertion & 45.0 & 800.0 & 3.8 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+However, initial trials with these derived parameters revealed significant overshoot, unacceptably long settling times, and the system frequently entered uncontrolled oscillations. As a result of these shortcomings, manual tuning of the PID coefficients was required to achieve satisfactory performance. Nevertheless, even these manually tuned PID gains still resulted in unstable oscillations, particularly at the extreme ends of the range of motion. Consequently, the system was often operated using a simple P controller with manually selected gains, leading to very poor overall system performance.
+
+
 \section{System Kinematics and Coordinate Frames}
 
-\section{System PID Controller Design}
+It is critical to understand the system kinematics and coordinate frames for this system. This section will illustrate the defined coordinate frame positions with the system in its respect 0 positions. 
 
+\subsection{MTM Coordinate Frame}
 
+As stated earlier, the MTM has 7 degrees of freedom. It is imperative to understand the coordinate frame of each of these axes. Figure \ref{fig:MTMcoords} showcases each of these axes in their zero position with their respective coordinate frames attached. A detailed view of the updated gimbal design with each of the axes in their zero position can be seen in Figure~\ref{fig:GimbalCoords}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{figures/MTMcoords.png}
+    \caption{The MTM and its associated degrees of freedom shown in their zero-position with DH-coordinate frames attached \cite{walder2022design}}
+    \label{fig:MTMcoords}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{figures/Gimbalcoords.png}
+    \caption{The updated gimbal and its associated degrees of freedom shown in their zero-position. \cite{Messner2025Teleoperative}}
+    \label{fig:GimbalCoords}
+\end{figure}
+
+\subsection{PSM and Tool Coordinate Frame}
+
+The PSM and its associated tool have a total of 7 degrees of freedom. Each of these degrees of freedom can be seen in their zero position in \textbf{Figure \ref{fig:PSMCoord}}.
+
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[width=1.0\linewidth]{figures/PSMcoord.png}
+    \caption{The PSM and endowrist tool shown in their zero-position with DH-coordinate frames attached, according to the cDH convention. \cite{walder2022design}}
+    \label{fig:PSMCoord}
+\end{figure}
