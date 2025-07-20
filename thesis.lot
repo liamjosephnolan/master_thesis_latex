@@ -5,19 +5,19 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {3.1}{\ignorespaces Master Tool Manipulator (MTM) Joint Classification and Positional Sensing.\relax }}{11}{table.caption.10}%
-\contentsline {table}{\numberline {3.2}{\ignorespaces Patient Side Manipulator (PSM) Joint Classification and Drive System.\relax }}{13}{table.caption.12}%
-\contentsline {table}{\numberline {3.3}{\ignorespaces PSM Joint Specifications\relax }}{25}{table.caption.24}%
-\contentsline {table}{\numberline {3.4}{\ignorespaces Initial PID Constants\relax }}{27}{table.caption.26}%
+\contentsline {table}{\numberline {3.1}{\ignorespaces MTM Joint Classification and Positional Sensing.\relax }}{10}{table.caption.10}%
+\contentsline {table}{\numberline {3.2}{\ignorespaces PSM Joint Classification and Drive System.\relax }}{12}{table.caption.12}%
+\contentsline {table}{\numberline {3.3}{\ignorespaces PSM Joint Specifications\relax }}{21}{table.caption.22}%
+\contentsline {table}{\numberline {3.4}{\ignorespaces Initial PID Constants\relax }}{23}{table.caption.23}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {4.1}{\ignorespaces MTM \texttt {ROS2} Topics\relax }}{36}{table.caption.33}%
-\contentsline {table}{\numberline {4.2}{\ignorespaces Grid of 9 Characterization Points for System Identification\relax }}{47}{table.caption.38}%
-\contentsline {table}{\numberline {4.3}{\ignorespaces Ziegler-Nichols PID Gains for Roll and Pitch Subsystems\relax }}{50}{table.caption.42}%
-\contentsline {table}{\numberline {4.4}{\ignorespaces Roll Proportional Gain ($K_p$) Table\relax }}{52}{table.caption.44}%
-\contentsline {table}{\numberline {4.5}{\ignorespaces Roll Derivative Gain ($K_d$) Table\relax }}{52}{table.caption.45}%
-\contentsline {table}{\numberline {4.6}{\ignorespaces Pitch Proportional Gain ($K_p$) Table\relax }}{52}{table.caption.46}%
-\contentsline {table}{\numberline {4.7}{\ignorespaces Pitch Derivative Gain ($K_d$) Table\relax }}{52}{table.caption.47}%
-\contentsline {table}{\numberline {4.8}{\ignorespaces Pitch Integral Gain ($K_i$) Table\relax }}{53}{table.caption.48}%
+\contentsline {table}{\numberline {4.1}{\ignorespaces MTM \texttt {ROS2} Topics\relax }}{31}{table.caption.30}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Grid of 9 Characterization Points for System Identification\relax }}{41}{table.caption.34}%
+\contentsline {table}{\numberline {4.3}{\ignorespaces Ziegler-Nichols PID Gains for Roll and Pitch Subsystems\relax }}{44}{table.caption.38}%
+\contentsline {table}{\numberline {4.4}{\ignorespaces Roll Proportional Gain ($K_p$) Table\relax }}{45}{table.caption.40}%
+\contentsline {table}{\numberline {4.5}{\ignorespaces Roll Derivative Gain ($K_d$) Table\relax }}{45}{table.caption.41}%
+\contentsline {table}{\numberline {4.6}{\ignorespaces Pitch Proportional Gain ($K_p$) Table\relax }}{46}{table.caption.42}%
+\contentsline {table}{\numberline {4.7}{\ignorespaces Pitch Derivative Gain ($K_d$) Table\relax }}{46}{table.caption.43}%
+\contentsline {table}{\numberline {4.8}{\ignorespaces Pitch Integral Gain ($K_i$) Table\relax }}{46}{table.caption.44}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

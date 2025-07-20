@@ -15,45 +15,45 @@ Warning--missing nationality in US20230309921A1
 Warning--empty journal in Messner2025Teleoperative
 
 Done.
-You've used 17 entries,
+You've used 22 entries,
             4087 wiz_defined-function locations,
-            943 strings with 11601 characters,
-and the built_in function-call counts, 13666 in all, are:
-= -- 1095
-> -- 386
-< -- 113
-+ -- 224
-- -- 81
-* -- 668
-:= -- 2068
-add.period$ -- 35
-call.type$ -- 17
-change.case$ -- 21
-chr.to.int$ -- 261
-cite$ -- 19
-duplicate$ -- 949
-empty$ -- 983
-format.name$ -- 83
-if$ -- 3151
+            972 strings with 12603 characters,
+and the built_in function-call counts, 17646 in all, are:
+= -- 1406
+> -- 506
+< -- 143
++ -- 287
+- -- 104
+* -- 857
+:= -- 2645
+add.period$ -- 46
+call.type$ -- 22
+change.case$ -- 30
+chr.to.int$ -- 330
+cite$ -- 24
+duplicate$ -- 1235
+empty$ -- 1294
+format.name$ -- 111
+if$ -- 4080
 int.to.chr$ -- 0
-int.to.str$ -- 17
-missing$ -- 183
-newline$ -- 86
-num.names$ -- 17
-pop$ -- 418
+int.to.str$ -- 22
+missing$ -- 242
+newline$ -- 101
+num.names$ -- 24
+pop$ -- 562
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 1039
+skip$ -- 1336
 stack$ -- 0
-substring$ -- 594
-swap$ -- 834
-text.length$ -- 26
+substring$ -- 764
+swap$ -- 1069
+text.length$ -- 33
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 17
+type$ -- 22
 warning$ -- 2
-while$ -- 47
-width$ -- 19
-write$ -- 205
+while$ -- 64
+width$ -- 24
+write$ -- 253
 (There were 2 warnings)

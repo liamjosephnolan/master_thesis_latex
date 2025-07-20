@@ -4,47 +4,42 @@
 \babel@toc {english}{}\relax 
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces The Original Da Vinci Research Kit. \cite {Fontanelli2017ModellingAI}\relax }}{5}{figure.caption.6}%
-\contentsline {figure}{\numberline {2.2}{\ignorespaces The Raven II surgical system design. In this figure the cable driven design can clearly be seen \cite {Hannaford2013RavenII}\relax }}{6}{figure.caption.7}%
-\contentsline {figure}{\numberline {2.3}{\ignorespaces An overview of a typical ROS2 node network consisting of subscription nodes and publishing nodes, actions and service types can also be seen \cite {doi:10.1126/scirobotics.abm6074}\relax }}{7}{figure.caption.8}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces The Original Da Vinci Research Kit.(Reprinted from \cite {Fontanelli2017ModellingAI} Fig 1)\relax }}{5}{figure.caption.6}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces The Raven II surgical system design. In this figure the cable driven design can clearly be seen (Reprinted from \cite {Hannaford2013RavenII} Fig 1)\relax }}{6}{figure.caption.7}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces An overview of a typical ROS 2 node network consisting of subscription nodes and publishing nodes, actions and service types can also be seen (Reprinted from \cite {doi:10.1126/scirobotics.abm6074} Fig 2)\relax }}{7}{figure.caption.8}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces (PLACEHOLDER) Overview of the Desktop Teleoperated Surgical Training System, illustrating the Master Tool Manipulator (MTM) and Patient Side Manipulator (PSM) components.\relax }}{11}{figure.caption.9}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces (PLACEHOLDER)Overview of the Master Tool Manipulator (MTM) with indicated Degrees of Freedom.\relax }}{12}{figure.caption.11}%
-\contentsline {figure}{\numberline {3.3}{\ignorespaces (PLACEHOLDER) Overview of the Patient Side Manipulator (PSM) with indicated Degrees of Freedom.\relax }}{14}{figure.caption.13}%
-\contentsline {figure}{\numberline {3.4}{\ignorespaces (PLACEHOLDER) Overview of the entire MTM system with indications to the subsystems.\relax }}{15}{figure.caption.14}%
-\contentsline {figure}{\numberline {3.5}{\ignorespaces (PLACEHOLDER) Overview of the MTM superstructure.\relax }}{16}{figure.caption.15}%
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Detailed view of the MTM's J1 joint design \cite {walder2022design}\relax }}{17}{figure.caption.16}%
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Detailed overview of the MTM's GCS design. \cite {walder2022design}\relax }}{18}{figure.caption.17}%
-\contentsline {figure}{\numberline {3.8}{\ignorespaces (PLACEHOLDER) Overview of the PSM superstructure.\relax }}{20}{figure.caption.18}%
-\contentsline {figure}{\numberline {3.9}{\ignorespaces Detailed view of the mechanical design of the roll axis, highlighting the main shaft design. \cite {walder2022design}\relax }}{21}{figure.caption.19}%
-\contentsline {figure}{\numberline {3.10}{\ignorespaces A detailed view of the PSM's pitch and roll GCS design.\cite {walder2022design}\relax }}{22}{figure.caption.20}%
-\contentsline {figure}{\numberline {3.11}{\ignorespaces Detailed view of the PSM's pitch axis mechanism. \cite {walder2022design}\relax }}{23}{figure.caption.21}%
-\contentsline {figure}{\numberline {3.12}{\ignorespaces Detailed view of the PSM's insertion axis mechanism. \cite {walder2022design}\relax }}{24}{figure.caption.22}%
-\contentsline {figure}{\numberline {3.13}{\ignorespaces Detailed view of the PSM's tool cart, highlighting the spring-loaded compliance mechanism. \cite {walder2022design}\relax }}{24}{figure.caption.23}%
-\contentsline {figure}{\numberline {3.14}{\ignorespaces Electrical schematics of the PSM system. \cite {walder2022design} \relax }}{25}{figure.caption.25}%
-\contentsline {figure}{\numberline {3.15}{\ignorespaces The MTM and its associated degrees of freedom shown in their zero-position with DH-coordinate frames attached \cite {walder2022design}\relax }}{29}{figure.caption.27}%
-\contentsline {figure}{\numberline {3.16}{\ignorespaces The updated gimbal and its associated degrees of freedom shown in their zero-position. \cite {Messner2025Teleoperative}\relax }}{29}{figure.caption.28}%
-\contentsline {figure}{\numberline {3.17}{\ignorespaces The PSM and endowrist tool shown in their zero-position with DH-coordinate frames attached, according to the cDH convention. \cite {walder2022design}\relax }}{30}{figure.caption.29}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Overview of the Desktop Teleoperated Surgical Training System, illustrating the MTM and PSM components.\relax }}{10}{figure.caption.9}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Overview of the MTM with indicated DOFs.\relax }}{11}{figure.caption.11}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Overview of the PSM with indicated DOFs.\relax }}{12}{figure.caption.13}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Overview of the entire MTM system with indications to the subsystems.\relax }}{13}{figure.caption.14}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Detailed view of the MTM's J1 joint design (Reprinted from \cite {walder2022design} Fig 2.1)\relax }}{14}{figure.caption.15}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Detailed overview of the MTM's GCS design. (Reprinted from \cite {walder2022design} Fig 2.9)\relax }}{15}{figure.caption.16}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Detailed view of the mechanical design of the roll axis, highlighting the main shaft design. (Reprinted from \cite {walder2022design} Fig 2.10)\relax }}{18}{figure.caption.17}%
+\contentsline {figure}{\numberline {3.8}{\ignorespaces A detailed view of the PSM's pitch and roll GCS design. (Reprinted from \cite {walder2022design} Fig. 2.22)\relax }}{18}{figure.caption.18}%
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Detailed view of the PSM's pitch axis mechanism. (Reprinted from \cite {walder2022design} Fig 2.13)\relax }}{19}{figure.caption.19}%
+\contentsline {figure}{\numberline {3.10}{\ignorespaces Detailed view of the PSM's insertion axis mechanism. (Reprinted from \cite {walder2022design} Fig 2.14)\relax }}{20}{figure.caption.20}%
+\contentsline {figure}{\numberline {3.11}{\ignorespaces Detailed view of the PSM's tool cart, highlighting the spring-loaded compliance mechanism. (Reprinted from \cite {walder2022design} Fig 2.15)\relax }}{21}{figure.caption.21}%
+\contentsline {figure}{\numberline {3.12}{\ignorespaces The MTM and its associated degrees of freedom shown in their zero-position with DH-coordinate frames attached (Reprinted from \cite {walder2022design} Fig 3.1)\relax }}{24}{figure.caption.24}%
+\contentsline {figure}{\numberline {3.13}{\ignorespaces The updated gimbal and its associated degrees of freedom shown in their zero-position. (Reprinted from \cite {Messner2025Teleoperative} Fig 2.1)\relax }}{24}{figure.caption.25}%
+\contentsline {figure}{\numberline {3.14}{\ignorespaces The PSM and endowrist tool shown in their zero-position with DH-coordinate frames attached, according to the cDH convention. (Reprinted from \cite {walder2022design} Fig 3.2)\relax }}{25}{figure.caption.26}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Initial ROS 2 System Architecture for Target Pose Calculation.\relax }}{31}{figure.caption.30}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Simplified ROS 2 System Architecture for Direct Target Pose Streaming.\relax }}{32}{figure.caption.31}%
-\contentsline {figure}{\numberline {4.3}{\ignorespaces SDF model of MTM shown in the RViz environment. The gimbal solid models have been hidden in this model\relax }}{33}{figure.caption.32}%
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Severe data loss and stuttering observed in \texttt {/psm\_joint\_telemetry} when subscribing to \texttt {/model\_pose} before QoS profile adjustments. The bottom plot is the published target position and the upper plot is the calculated joint angle. The lack of fidelity in the the calculated joint angle can clearly be seen.\relax }}{38}{figure.caption.34}%
-\contentsline {figure}{\numberline {4.5}{\ignorespaces This is an optional caption for the figure itself.\relax }}{41}{figure.caption.35}%
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Theoretical trend of absolute motor voltage required for the roll subsystem as a function of roll angle.\relax }}{46}{figure.caption.36}%
-\contentsline {figure}{\numberline {4.7}{\ignorespaces Theoretical trend of required motor voltage for the pitch subsystem as a function of pitch angle.\relax }}{46}{figure.caption.37}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Initial ROS 2 System Architecture for Target Pose Calculation.\relax }}{26}{figure.caption.27}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Simplified ROS 2 System Architecture for Direct Target Pose Streaming.\relax }}{27}{figure.caption.28}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces SDF model of MTM shown in the RViz environment. The gimbal solid models have been hidden in this model\relax }}{28}{figure.caption.29}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Theoretical trend of absolute motor voltage required for the roll subsystem as a function of roll angle.\relax }}{39}{figure.caption.32}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Theoretical trend of required motor voltage for the pitch subsystem as a function of pitch angle.\relax }}{40}{figure.caption.33}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces The 3D trajectory generated by the MTM, representing a typical surgical movement for target following experiments.\relax }}{61}{figure.caption.51}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Sinusoidal path following performance of the Roll axis with proportional control, showing significant lag and overshoot.\relax }}{62}{figure.caption.52}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Sinusoidal path following performance of the Pitch axis with proportional control, illustrating substantial undershoot and lag.\relax }}{63}{figure.caption.53}%
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Sinusoidal path following performance of the Pitch axis with the new LQI control algorithm, demonstrating excellent tracking with minimal error.\relax }}{63}{figure.caption.54}%
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Sinusoidal path following performance of the Roll axis with the new LQR control algorithm, showing near-perfect tracking.\relax }}{64}{figure.caption.55}%
-\contentsline {figure}{\numberline {5.6}{\ignorespaces Comparison of Roll axis tracking error for proportional control vs. the new LQR control during sinusoidal path following.\relax }}{64}{figure.caption.56}%
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Comparison of Pitch axis tracking error for proportional control vs. the new LQI control during sinusoidal path following.\relax }}{65}{figure.caption.57}%
-\contentsline {figure}{\numberline {5.8}{\ignorespaces Target path following performance of the Pitch axis, comparing the old proportional control to the new LQI control algorithm. The new controller exhibits significantly improved tracking accuracy.\relax }}{66}{figure.caption.58}%
-\contentsline {figure}{\numberline {5.9}{\ignorespaces Target path following performance of the Roll axis, comparing the old proportional control to the new LQR control algorithm. The new controller demonstrates superior tracking with reduced lag and overshoot.\relax }}{66}{figure.caption.59}%
-\contentsline {figure}{\numberline {5.10}{\ignorespaces Comparison of Roll axis tracking error for proportional control vs. the new LQR control during complex target path following, highlighting the significant reduction in error with the new method.\relax }}{67}{figure.caption.60}%
-\contentsline {figure}{\numberline {5.11}{\ignorespaces Comparison of Pitch axis tracking error for proportional control vs. the new LQI control during complex target path following, demonstrating improved accuracy with the updated algorithm.\relax }}{67}{figure.caption.61}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces The 3D trajectory generated by the MTM, representing a typical surgical movement for target following experiments.\relax }}{54}{figure.caption.47}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Sinusoidal path following performance of the Roll axis with proportional control, showing significant lag and overshoot.\relax }}{55}{figure.caption.48}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Sinusoidal path following performance of the Pitch axis with proportional control, illustrating substantial undershoot and lag.\relax }}{56}{figure.caption.49}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Sinusoidal path following performance of the Pitch axis with the new LQI control algorithm, demonstrating excellent tracking with minimal error.\relax }}{57}{figure.caption.50}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Sinusoidal path following performance of the Roll axis with the new LQR control algorithm, showing near-perfect tracking.\relax }}{57}{figure.caption.51}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Comparison of Roll axis tracking error for proportional control vs. the new LQR control during sinusoidal path following.\relax }}{58}{figure.caption.52}%
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Comparison of Pitch axis tracking error for proportional control vs. the new LQI control during sinusoidal path following.\relax }}{59}{figure.caption.53}%
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Target path following performance of the Pitch axis, comparing the old proportional control to the new LQI control algorithm. The new controller exhibits significantly improved tracking accuracy.\relax }}{60}{figure.caption.54}%
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Target path following performance of the Roll axis, comparing the old proportional control to the new LQR control algorithm. The new controller demonstrates superior tracking with reduced lag and overshoot.\relax }}{60}{figure.caption.55}%
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Comparison of Roll axis tracking error for proportional control vs. the new LQR control during complex target path following, highlighting the significant reduction in error with the new method.\relax }}{61}{figure.caption.56}%
+\contentsline {figure}{\numberline {5.11}{\ignorespaces Comparison of Pitch axis tracking error for proportional control vs. the new LQI control during complex target path following, demonstrating improved accuracy with the updated algorithm.\relax }}{62}{figure.caption.57}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
